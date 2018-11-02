@@ -1,0 +1,5 @@
+IRL, Astrocyte cells handle creating synapses. 
+In my old code, for nonlinearity, big problem is how do I store pointers to all the neurons efficiently, and how do I handle connecting two neurons.
+the idea is to create the equivalent of Astrocyte cells, that hold pointers to a lot of neurons and create new connections, as well as maintain metadata.
+
+during every timestep, we iterate over all neurons and send out a "signal" along the axons and add to the voltage of the neurons it points to

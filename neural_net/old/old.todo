@@ -1,0 +1,93 @@
+TODO list for neural_net project
+Michael Ivanitskiy, started April 2017
+
+
+
+#threshold implementation
+	# base data structure
+		[**** ] node class
+		[**** ] layer class
+		[**** ] net class
+		# other
+			[**** ] add equivalent of XOR gate for logical completeness
+				-threshold for dissapation? set val to 0 if over a value?
+				-needs major work
+			-bugfixes remaining
+
+#bool implementation
+	# base data structure
+		[          ]
+
+		[********  ] node class
+			- initial implementation using binary vals
+			[*] 2 bits of data needed for node itself
+				- first bit is value of node
+				- second bit is type of node (XOR or OR)
+			[*] array of int8 to store connection data
+			[*] fctn to add value to node depending on node type
+			[*] fctn pushing values to next layer
+			[*] fix issue with include loop to get next layer address
+			[ ] deprecate last layer checking in push() ?
+
+		[********  ] layer class
+			[*] initialize from an array of int8
+			[*] array of node address
+			[*] ptr to next layer
+			[*] fctn for pushing all nodes
+				[*] ignore pushing to next layer if it is nullptr
+
+		[******    ] net class
+			[********* ] initialize from an input file
+				[*] reading from first line of layer sizes
+					- maybe can be found from line size, but so much easier to do this
+				[*] layers on seperate lines, int8 after int8 for data in nodes
+				[*] pass this to layer array
+				[*] output layer is layer 0, make sure this is handled properly
+
+			[******    ] function to calculate output of neural network
+				[ ] separate function for reading from int8 array
+				[ ] separate function for writing to int8 array
+
+			[ ] array of layer address
+			[ ] error checking in set_input()
+			[ ] error checking in read_input()
+
+		[          ] bin_arr class
+			[ ] fix constructor duplicate code?
+			[ ] remove debug statements
+
+	# misc
+		[*] switch to uint8_t instead of __int8
+		[ ] move accessing of int8 arrays to separate class
+			[ ] write arr in util.cpp
+			[          ] convert program to use this format
+		[ ] remove all statements for debuggging
+		[ ] list of node IDs connected to, rather than array with t/f?
+		[ ] go over  vars & functs in all classes should be public/private
+			-use friend classes?
+		[ ] pushing to next layer needs to be moved up to layer due to include limitations
+
+
+	#notes
+		- threshold implementation meant to mimic real neurons,
+			if neuron reaches threshold for value (charges) then it will fire.
+			weights meant to represent connection strength and how much the next
+			neuron cares about the connection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
