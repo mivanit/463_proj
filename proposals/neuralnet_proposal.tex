@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{amssymb,amsthm,enumitem,graphicx,mathtools,titling,tikz}
+
+%% Define custom enumerate environment for deeper nesting
+\newlist{myEnumerate}{enumerate}{5}
+\setenumerate{listparindent=\parindent}
+\setlist[myEnumerate,1]{label=(\arabic*)}
+\setlist[myEnumerate,2]{label=(\alph*)}
+\setlist[myEnumerate,3]{label=(\roman*)}
+\setlist[myEnumerate,4]{label=(\alph*)}
+\setlist[myEnumerate,5]{label=(\roman*)}
+\setlistdepth{7}
+
+\newcommand{\ben}{\begin{myEnumerate}}
+\newcommand{\een}{\end{myEnumerate}}
+
+\makeatletter\newcommand{\skipitems}[1]{%
+  \addtocounter{\@enumctr}{#1}%
+  }\makeatother
+
+%% Increases spacing between lines
+\renewcommand{\baselinestretch}{1.175}
+
+%% Shrink spacing between text and environments
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize
+    \setlength\abovedisplayskip{4.5pt}
+    \setlength\belowdisplayskip{4.5pt}
+    \setlength\abovedisplayshortskip{4.5pt}
+    \setlength\belowdisplayshortskip{4.5pt}}
+
+%% Adjust sizing and spacing of header
+\pretitle{\begin{center}\huge}
+\posttitle{\par\end{center}}
+\preauthor{\begin{center}\large}
+\postauthor{\end{center}}
+\date{}
+
+\title{TITLE}
+\author{Michael Ivanitsky, Connor Puritz}
+\title{WIP: comparison of learning techniques in artificial vs biological neural networks}
+\begin{document}
+\maketitle
+
+we aim to compare the structure and learning techniques of artificial and biological neural networks, as well as assess the simplifications made by artificial neural network models. We then hope to construct a fast-learning artificial neural network by closely modeling biological networks.
+
+
+
+
+
+
+\end{document}

@@ -58,6 +58,8 @@ private:
 	neuron() {}
 
 	//construct using Node type, data, size of next layer
+	
+
 
 };
 
