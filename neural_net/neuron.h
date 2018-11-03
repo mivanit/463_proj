@@ -8,18 +8,29 @@ using namespace std;
 const float V_THRESHOLD = -50.0;
 const float V_REST = -70.0;
 
-class voltage_waveform
+class vwf
 {
 	// start time from sim start, in ms/10
 	size_t start_time;
 	// difference in time between each float is 1/10 of a ms
 	vector < float > wave;
 
+	// adds the input to "this"
+	// REQUIRES: input.start_time >= this->start_time
+	void add_waveform(vwf * input, float in_strength = 1)
+	{
+		// loop through all spots in waveform
+		for (int i = input->start_time - start_time; i < input->start_time + input->wave.size() - start_time; i++ )
+		{
+			// add to current value
+			// if greater than V_THRESHOLD after addition and less than threshold before, then 
+
+		}
+	}
 	// TODO: overloaded addition operator, adds two waveforms together
 
 	// TODO: find next threshold crossing
 };
-
 
 class neuron
 {
@@ -32,11 +43,12 @@ private:
 		// strength of connection
 		float strength;
 		// time delay, in tenths of a millisecond
+		// for the human brain, a myelin-sheathed signal should cross the brain in ~0.8ms.
 		size_t dist;
 	};
 
 	// initial value of node
-	int voltage = V_REST;
+	vwf V;
 
 	// axon for outbound connections
 	vector < synapse > axon;

@@ -1,5 +1,69 @@
+neural net proj:
+	neurons:
+		[ ] have array of "synapse" objects that acts as the axon
+		synapse:
+			[ ] ptr to destination neuron
+			[ ] weight
+			[ ] time delay
+				this might not be important, figuring out whether this plays a role is one of proj goals
+			
+
+		voltage waveform:
+			this is only roughly planned out, needs serious optimization, maybe total rethinking
+			[ ] vector of voltage values over time
+			combining waveforms:
+				[ ] function to (weighting) add one waveform (signal from dendrite) to another
+				[ ] this checks for going over the threshold voltage
+				[ ] if over threshold, add to queue (sorted by time of threshold cross)
+	astrocytes:
+		[ ] main storage/deletion of neurons
+			vec should be fine for storage
+		[ ] handle creation of new synapses
+			this is something that needs serious thought
+		[ ] look into what else they do
+		[ ] look into other weird cell types?
+
+	brain:
+		[ ] stores astrocytes
+		[ ] holds main time loop function
+		[ ] queues for threshold crossing should be global for easy access?
+			want to be able to create adversary brains though
+
+	learning alg:
+		[ ] start with random mutations as baseline
+		???????? where do we go from here? (backpropogation is lame)
+
+	testing:
+		[ ] look into using https://github.com/balisujohn/mltests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 IRL, Astrocyte cells handle creating synapses. 
 In my old code, for nonlinearity, big problem is how do I store pointers to all the neurons efficiently, and how do I handle connecting two neurons.
 the idea is to create the equivalent of Astrocyte cells, that hold pointers to a lot of neurons and create new connections, as well as maintain metadata.
 
 during every timestep, we iterate over all neurons and send out a "signal" along the axons and add to the voltage of the neurons it points to
+
