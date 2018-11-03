@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{amssymb,amsthm,enumitem,graphicx,mathtools,titling,tikz}
+
+%% Define custom enumerate environment for deeper nesting
+\newlist{myEnumerate}{enumerate}{5}
+\setenumerate{listparindent=\parindent}
+\setlist[myEnumerate,1]{label=(\arabic*)}
+\setlist[myEnumerate,2]{label=(\alph*)}
+\setlist[myEnumerate,3]{label=(\roman*)}
+\setlist[myEnumerate,4]{label=(\alph*)}
+\setlist[myEnumerate,5]{label=(\roman*)}
+\setlistdepth{7}
+
+\newcommand{\ben}{\begin{myEnumerate}}
+\newcommand{\een}{\end{myEnumerate}}
+
+\makeatletter\newcommand{\skipitems}[1]{%
+  \addtocounter{\@enumctr}{#1}%
+  }\makeatother
+
+%% Increases spacing between lines
+\renewcommand{\baselinestretch}{1.175}
+
+%% Shrink spacing between text and environments
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize
+    \setlength\abovedisplayskip{4.5pt}
+    \setlength\belowdisplayskip{4.5pt}
+    \setlength\abovedisplayshortskip{4.5pt}
+    \setlength\belowdisplayshortskip{4.5pt}}
+
+%% Adjust sizing and spacing of header
+\pretitle{\begin{center}\huge}
+\posttitle{\par\end{center}}
+\preauthor{\begin{center}\large}
+\postauthor{\end{center}}
+\date{}
+
+\title{TITLE}
+\author{Michael Ivanitsky, Connor Puritz}
+\title{Identification of repeat sequences in large genomes}
+\begin{document}
+\maketitle
+The identification of repeat sequences in genomes is crucial to understanding their structures. In particular, self-replicating DNA sequences (known as transposons) make up at least $44\%$ of the human genome. They can often cause harmful mutations, but are also considered to be important for the regulation of DNA transcription, making them important targets of genomic research once identified.
+
+Repeated DNA sequences cannot normally be directly identified since a given sequence will inevitably vary across genomes from separate individuals, and even in repeated sequences across the same genome, due to mutations. There are several methods used to account for this. The simplest is to simply rely on previously compiled collections of known repeat sequences for a species, or to estimate them from a large collection of sequenced genomes. This method is rarely applicable for species other than humans, making it a poor choice for a generalized procedure.
+
+A second approach is to analyze genomes \textit{de novo}, and use probabilistic models to build a collection of likely repeated sequences. This method tends to be unreasonably slow for large genomes, though, and are often not practical for researchers investigating larger organisms.
+
+We hope to use an artificial neural network, first to quickly analyze genomes for occurrences of known repeated sequences, and eventually to be able to quickly analyze genomes \textit{de novo} through the use of memory neurons. We also hope to be able to lean something about the propagation of transposable elements through the structure of a trained neural network.
+
+We believe that a modified form of a Long/Short term memory neural network would be able to learn to recognize sequences that are likely to be transposable elements through the use of memory cells that would be able to store larger amounts of data.
+
+
+
+
+
+\end{document}
