@@ -7,7 +7,6 @@ neural net proj:
 			[ ] time delay
 				this might not be important, figuring out whether this plays a role is one of proj goals
 			
-
 		voltage waveform:
 			this is only roughly planned out, needs serious optimization, maybe total rethinking
 			[ ] vector of voltage values over time
@@ -36,16 +35,10 @@ neural net proj:
 	testing:
 		[ ] look into using https://github.com/balisujohn/mltests
 
-
-
-
-
-
-
-
-
-
-
+	report:
+		[ ] visualization of network graphs
+			python packages exist for this
+		[ ] animations of problem solving / playing games
 
 
 
