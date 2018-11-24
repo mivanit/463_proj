@@ -16,6 +16,11 @@
 \newcommand{\ben}{\begin{myEnumerate}}
 \newcommand{\een}{\end{myEnumerate}}
 
+\newcommand{\tensProd}{\otimes}
+\newcommand{\graphSum}{\oplus}
+
+\newcommand{\M}{\mathbb{M}}
+
 \makeatletter\newcommand{\skipitems}[1]{%
   \addtocounter{\@enumctr}{#1}%
   }\makeatother
@@ -44,7 +49,26 @@
 \begin{document}
 \maketitle
 
+
+\section{Introduction}
+
 we aim to compare the structure and learning techniques of artificial and biological neural networks, as well as assess the simplifications made by artificial neural network models. We then hope to construct a fast-learning artificial neural network by closely modeling biological networks.
+
+
+\section{Motivation}
+
+We assume that the graph structure of a biological neural network at some time $t$ can be modeled by a time dependent function $\M$ that transforms the edge and vertex sets of an initial graph $G$ in some fashion. Further, we will model networks under the assumption that the initial structure of $G$ can be approximated by the tensor product of other graphs:
+
+$$ G = (H_1 \tensProd H_2 \tensProd \cdots \tensProd H_n ) $$
+
+The reason for this assumption:
+
+The tensor product $ C = A \otimes B$ of two graphs $A,B$ with $|V_A| = h, |V_B| = k$, the size of the vertex set of $C$ is $h \cdot k$. However, we can simulate a random walk on $C$ with only $(h + k)$ memory, despite the vastly increased complexity of the graph. For our applications, of course, we are not trying to simulate a random walk, but there are computational savings nonetheless. An important distinction is that a neural networks changes with time as it learns, and this is where our function $\M : (G, t) \mapsto G_t$ comes into play.
+
+
+\section{Code outline}
+
+When storing the graph $G$, we simply store the tensor product components
 
 
 
