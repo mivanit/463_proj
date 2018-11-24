@@ -1,29 +1,30 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=0.95in]{geometry}
+\usepackage{mivanit_texstyle}
 \usepackage{amssymb,amsthm,enumitem,graphicx,mathtools,titling,tikz}
 
 %% Define custom enumerate environment for deeper nesting
-\newlist{myEnumerate}{enumerate}{5}
-\setenumerate{listparindent=\parindent}
-\setlist[myEnumerate,1]{label=(\arabic*)}
-\setlist[myEnumerate,2]{label=(\alph*)}
-\setlist[myEnumerate,3]{label=(\roman*)}
-\setlist[myEnumerate,4]{label=(\alph*)}
-\setlist[myEnumerate,5]{label=(\roman*)}
-\setlistdepth{7}
+%\newlist{myEnumerate}{enumerate}{5}
+%\setenumerate{listparindent=\parindent}
+%\setlist[myEnumerate,1]{label=(\arabic*)}
+%\setlist[myEnumerate,2]{label=(\alph*)}
+%\setlist[myEnumerate,3]{label=(\roman*)}
+%\setlist[myEnumerate,4]{label=(\alph*)}
+%\setlist[myEnumerate,5]{label=(\roman*)}
+%\setlistdepth{7}
 
-\newcommand{\ben}{\begin{myEnumerate}}
-\newcommand{\een}{\end{myEnumerate}}
+%\newcommand{\ben}{\begin{myEnumerate}}
+%\newcommand{\een}{\end{myEnumerate}}
 
 \newcommand{\tensProd}{\otimes}
 \newcommand{\graphSum}{\oplus}
 
 \newcommand{\M}{\mathbb{M}}
 
-\makeatletter\newcommand{\skipitems}[1]{%
-  \addtocounter{\@enumctr}{#1}%
-  }\makeatother
+%\makeatletter\newcommand{\skipitems}[1]{%
+%  \addtocounter{\@enumctr}{#1}%
+%  }\makeatother
 
 %% Increases spacing between lines
 \renewcommand{\baselinestretch}{1.175}
@@ -59,7 +60,7 @@ we aim to compare the structure and learning techniques of artificial and biolog
 
 We assume that the graph structure of a biological neural network at some time $t$ can be modeled by a time dependent function $\M$ that transforms the edge and vertex sets of an initial graph $G$ in some fashion. Further, we will model networks under the assumption that the initial structure of $G$ can be approximated by the tensor product of other graphs:
 
-$$ G = (H_1 \tensProd H_2 \tensProd \cdots \tensProd H_n ) $$
+$$ G = (H_1 \tensProd H_2 \tensProd \cdots \tensProd H_L ) $$
 
 The reason for this assumption:
 
@@ -68,8 +69,18 @@ The tensor product $ C = A \otimes B$ of two graphs $A,B$ with $|V_A| = h, |V_B|
 
 \section{Code outline}
 
-When storing the graph $G$, we simply store the tensor product components
+When storing the graph $G$, we store the tensor product components $\listvec{H}{L}$ where $L$ is the number of layers. To specify a vertex $v$ in $G$, we store in an $L$-element array the vertices $v_i \in H_i$ to which $v$ corresponds to.
 
+To store an edge $e$ that is an addition to $G$ or the change of an existing edge weight in $G$s we store the vertices $v_1, v_2$ which it connects, and store the edge in a data structure sorted by the input vertex $v_1$. Given a vertex $v_1$, this lets us easily access the edges leading away from $v_1$.
+
+
+
+priority queue for vertices?
+
+
+\section{Challenges}
+
+difficult to choose good initial $\listvec{H}{L}$
 
 
 
