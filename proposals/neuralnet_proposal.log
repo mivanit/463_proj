@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.21)  26 NOV 2018 00:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.21)  26 NOV 2018 13:57
 entering extended mode
 **./neuralnet_proposal.tex
 (neuralnet_proposal.tex
@@ -999,46 +999,46 @@ File: pgflibraryarrows.meta.code.tex 2015/05/13 v3.0.1a (rcs-revision 1.13)
 ) (neuralnet_proposal.aux)
 \openout1 = `neuralnet_proposal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 50.
-LaTeX Font Info:    Try loading font information for OML+txmi on input line 50.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 49.
+LaTeX Font Info:    Try loading font information for OML+txmi on input line 49.
 
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 50.
-LaTeX Font Info:    Try loading font information for OMS+txsy on input line 50.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 49.
+LaTeX Font Info:    Try loading font information for OMS+txsy on input line 49.
 
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 50.
-LaTeX Font Info:    Try loading font information for OMX+txex on input line 50.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 49.
+LaTeX Font Info:    Try loading font information for OMX+txex on input line 49.
 
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 50.
-LaTeX Font Info:    Try loading font information for U+txexa on input line 50.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 49.
+LaTeX Font Info:    Try loading font information for U+txexa on input line 49.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Try loading font information for OT1+txr on input line 50.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for LY/yfrak/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for LYG/ygoth/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Try loading font information for OT1+txr on input line 49.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
@@ -1051,15 +1051,15 @@ File: ot1txr.fd 2000/12/15 v3.1
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(68.65627pt, 476.98247pt, 68.65627pt)
-* v-part:(T,H,B)=(68.65627pt, 657.65746pt, 68.65627pt)
+* h-part:(L,W,R)=(90.3375pt, 433.62001pt, 90.3375pt)
+* v-part:(T,H,B)=(90.3375pt, 614.295pt, 90.3375pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=476.98247pt
-* \textheight=657.65746pt
-* \oddsidemargin=-3.61372pt
-* \evensidemargin=-3.61372pt
-* \topmargin=-40.61372pt
+* \textwidth=433.62001pt
+* \textheight=614.295pt
+* \oddsidemargin=18.0675pt
+* \evensidemargin=18.0675pt
+* \topmargin=-18.9325pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -1143,65 +1143,67 @@ ABD: EveryShipout initializing macros
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.15} into 
 your preamble.
- on input line 50.
+ on input line 49.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--64
+LaTeX Warning: No \author given.
 
- []
+[1
 
-LaTeX Font Info:    Try loading font information for U+txsya on input line 73.
+{C:/Users/mivan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    Try loading font information for U+txsya on input line 78.
+
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Try loading font information for U+txsyb on input line 73.
+LaTeX Font Info:    Try loading font information for U+txsyb on input line 78.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Try loading font information for U+txmia on input line 73.
+LaTeX Font Info:    Try loading font information for U+txmia on input line 78.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Try loading font information for U+txsyc on input line 73.
+LaTeX Font Info:    Try loading font information for U+txsyc on input line 78.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
 )
-[1
+LaTeX Font Info:    Try loading font information for OMS+txr on input line 88.
 
-{C:/Users/mivan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-
-LaTeX Warning: Reference `code_outline' on page 2 undefined on input line 77.
+(C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\omstxr.fd
+File: omstxr.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    Font shape `OMS/txr/m/n' in size <10> not available
+(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 88.
 
 [2] [3] (neuralnet_proposal.aux)
-
-LaTeX Warning: There were undefined references.
-
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 29801 strings out of 492972
- 718420 string characters out of 3135001
- 916030 words of memory out of 3000000
- 33022 multiletter control sequences out of 15000+200000
- 28056 words of font info for 67 fonts, out of 3000000 for 9000
+ 29827 strings out of 492972
+ 718852 string characters out of 3135001
+ 917971 words of memory out of 3000000
+ 33042 multiletter control sequences out of 15000+200000
+ 30626 words of font info for 71 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,6n,102p,807b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,5n,102p,898b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTex/fonts/enc/dvips/base/8r.enc}<C:/Users/mivan/Ap
 pData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Users/mivan/A
 ppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtxr.pfb><C:/Users/mivan/A
 ppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/txsy.pfb><C:/Users/mivan/A
 ppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/txsyb.pfb><C:/Program File
 s (x86)/MiKTex/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTex/
-fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/urw
-/times/utmri8a.pfb>
-Output written on neuralnet_proposal.pdf (3 pages, 56057 bytes).
+fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/ur
+w/times/utmr8a.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on neuralnet_proposal.pdf (3 pages, 63415 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
+ 48 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
