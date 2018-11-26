@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.21)  24 NOV 2018 14:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.21)  26 NOV 2018 00:12
 entering extended mode
 **./neuralnet_proposal.tex
 (neuralnet_proposal.tex
@@ -1145,21 +1145,26 @@ ick labels; missing features). Consider writing \pgfplotsset{compat=1.15} into
 your preamble.
  on input line 50.
 
-LaTeX Font Info:    Try loading font information for U+txsya on input line 61.
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--64
+
+ []
+
+LaTeX Font Info:    Try loading font information for U+txsya on input line 73.
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Try loading font information for U+txsyb on input line 61.
+LaTeX Font Info:    Try loading font information for U+txsyb on input line 73.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Try loading font information for U+txmia on input line 61.
+LaTeX Font Info:    Try loading font information for U+txmia on input line 73.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Try loading font information for U+txsyc on input line 61.
+LaTeX Font Info:    Try loading font information for U+txsyc on input line 73.
 
 (C:\Users\mivan\AppData\Roaming\MiKTeX\2.9\tex\latex\txfonts\utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
@@ -1167,26 +1172,36 @@ File: utxsyc.fd 2000/12/15 v3.1
 [1
 
 {C:/Users/mivan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(neuralnet_proposal.aux) ) 
+
+LaTeX Warning: Reference `code_outline' on page 2 undefined on input line 77.
+
+[2] [3] (neuralnet_proposal.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 29795 strings out of 492972
- 718358 string characters out of 3135001
- 916061 words of memory out of 3000000
- 33019 multiletter control sequences out of 15000+200000
- 25256 words of font info for 62 fonts, out of 3000000 for 9000
+ 29801 strings out of 492972
+ 718420 string characters out of 3135001
+ 916030 words of memory out of 3000000
+ 33022 multiletter control sequences out of 15000+200000
+ 28056 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,5n,102p,807b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTex/fonts/enc/dvips/base/8
-r.enc}<C:/Users/mivan/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtx
-mi.pfb><C:/Users/mivan/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rt
-xr.pfb><C:/Users/mivan/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/tx
-sy.pfb><C:/Users/mivan/AppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/tx
-syb.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/urw/times/utmb8a.pfb><C:/Pro
-gram Files (x86)/MiKTex/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86
-)/MiKTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on neuralnet_proposal.pdf (1 page, 46281 bytes).
+ 80i,6n,102p,807b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTex/fonts/enc/dvips/base/8r.enc}<C:/Users/mivan/Ap
+pData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Users/mivan/A
+ppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/rtxr.pfb><C:/Users/mivan/A
+ppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/txsy.pfb><C:/Users/mivan/A
+ppData/Roaming/MiKTeX/2.9/fonts/type1/public/txfonts/txsyb.pfb><C:/Program File
+s (x86)/MiKTex/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTex/
+fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/urw
+/times/utmri8a.pfb>
+Output written on neuralnet_proposal.pdf (3 pages, 56057 bytes).
 PDF statistics:
- 38 PDF objects out of 1000 (max. 8388607)
+ 44 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
