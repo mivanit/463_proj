@@ -12,35 +12,36 @@ neural net base:
 		[ ] exists only for edges which have modified weights or edges that do not exist in the original 
 		[ ] stores two neuron coords
 
-	mod edge container:
+	mod edge:
 		[ ] stores edges using in-neuron coordinate as key
+		[ ] should have function to add an edge, taking two neuron coords and weight as input
 
 	edge weight hash fctn:
 		[ ] modified randomly at beginning, then choose highest of a set
 		[ ] this is to attempt to minimize the number of edges that are modified
+		[ ] should take lots of edges to weight 0
 
 	neuron container:
-		[ ] 
-		
+		[ ] sort by time (smallest first), then by coordinate
+		[ ] for timestep t, run through all neuron inputs that are at at time t
+		[ ] before pushing along axon, make sure the next neuron in the queue is a different coordinate
+			- cheaper to add first push later, instead of push for every input
+			- also if non-linear activation function, need to add together all inputs first
 
 	graph object:
+		[ ] for graphs that are product components, we assume they are well connected and use an adjacency matrix
+		[ ] matricies should be of size specified at compile time
+			accomplished by having batch file that takes special text file as input, 
+			replaces certain consts, and then recompiles whole neural network
 
-	graph modification:
+	i/o + new neurons:
+		[ ] need to decide whether or not neurons can be added to the network at all
+		[ ] need to decide whether input/output neurons are part of the tensor product graph G or outside it
 
-
-
-
-brain base:
-	[ ] const number of layers (this makes neuron coords faster)
-
-	spiked brain:
 		
-	non-spiked brain:
-
-
-
 learning algorithm:
 	[ ] ???
+	[ ] basic version using simplified backpropogation, for benchmark
 
 
 chemical signalling:
