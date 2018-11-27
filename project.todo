@@ -1,18 +1,17 @@
 neural net base:
 	neuron coord:
-		[ ] const length array to store which vertex in H_i it corresponds to
-		[ ] MAYBE: for added neurons (input, output, etc)
+		[x] const length array to store which vertex in H_i it corresponds to @done(18-11-26 22:32)
 
 	neuron object:
-		[ ] neuron coord
-		[ ] charge, and time at which the charge was recieved
+		[x] neuron coord @done(18-11-26 22:32)
+		[x] charge, and time at which the charge was recieved @done(18-11-26 22:32)
 		[ ] exists only for neurons with charge or mod neurons, existence of all others is implied but not stored explicitly
 
 	mod edge:
+		[x] stores two neuron coords @done(18-11-26 22:32)
 		[ ] exists only for edges which have modified weights or edges that do not exist in the original 
-		[ ] stores two neuron coords
 
-	mod edge:
+	edge container:
 		[ ] stores edges using in-neuron coordinate as key
 		[ ] should have function to add an edge, taking two neuron coords and weight as input
 
@@ -31,7 +30,7 @@ neural net base:
 	graph object:
 		[ ] for graphs that are product components, we assume they are well connected and use an adjacency matrix
 		[ ] matricies should be of size specified at compile time
-			accomplished by having batch file that takes special text file as input, 
+			accomplished by having batch file that takes special text file as input,
 			replaces certain consts, and then recompiles whole neural network
 
 	i/o + new neurons:
