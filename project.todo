@@ -52,6 +52,9 @@ chemical signalling:
 testing:
 	[ ] look into using https://github.com/balisujohn/mltests
 	[ ] look into openai gym
+	[ ] for generation of adjacency matrices
+		- https://visualgo.net/en/graphds 
+		- http://graphonline.ru/en/
 
 
 
@@ -83,6 +86,20 @@ testing:
 
 
 
+
+
+
+
+
+
+
+==============================================================================================
+
+
+==============================================================================================
+
+
+==============================================================================================
 
 
 neural net proj:

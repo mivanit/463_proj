@@ -1,7 +1,7 @@
 // Michael Ivanitskiy, Connor Puritz
 // Math 463 Fall 2018 Final Project
 
-// file with neuron class stuff
+// file with edge class stuff
 
 #ifndef EDGE
 #define EDGE
@@ -10,8 +10,6 @@
 #include "consts_template.h"
 
 using namespace std;
-
-typedef uint8_t weight;
 
 // modified edge weight
 struct edge
