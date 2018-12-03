@@ -11,45 +11,21 @@
 // consts
 
 // number of layers limited to 255
-const uint8_t NUM_LAYERS = 
-;
+const uint8_t NUM_LAYERS = 4;
 
 // number of nodes in any layer limited to 255
 // network can thus have up to 255^255 or ~4.653e613 neurons
 // 5 layers -> up to ~1.078 trillion (255^5) neurons
-const uint8_t LAYERS_SIZE [NUM_LAYERS] = {
-
+uint8_t LAYERS_SIZE [NUM_LAYERS] = {
+10
+10
+10
+25
 };
 
 // input/output size is up to 65535, this can be changed relatively easily
 const uint16_t SIZE_INPUT = 5;
-
- 
 const uint16_t SIZE_OUTPUT = 5;
-
-// graphs
 typedef uint8_t weight;
-
-weight component_graphs_raw [ NUM_LAYERS ] [ LAYERS_SIZE[0] ] [ LAYERS_SIZE[0] ] = {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
-
 
 #endif
