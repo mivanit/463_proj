@@ -17,9 +17,9 @@ const uint8_t NUM_LAYERS = 4;
 // network can thus have up to 255^255 or ~4.653e613 neurons
 // 5 layers -> up to ~1.078 trillion (255^5) neurons
 uint8_t LAYERS_SIZE [NUM_LAYERS] = {
-10
-10
-10
+10,
+10,
+10,
 25
 };
 
