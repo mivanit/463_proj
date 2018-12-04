@@ -19,6 +19,7 @@
 \usepackage[english]{babel}
 \usepackage{tikz}
 \usepackage{hyperref}
+\usepackage{fancyvrb}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,6 +172,44 @@ Introduce ANNs, why they suck for bio, introduce SNNs, mention why they're bette
 \begin{frame}{Title 3}
 How we'll adapt the model for Hydra
 \end{frame}
+
+\begin{frame}[fragile]{Neuron Model}
+\begin{itemize}
+\item Leaky integrate-and-fire model:
+\begin{equation*}
+\frac{dV_{m}}{dt}=\frac{1}{C_{m}}\left(-\frac{(V_{m}-V_{m}^{eq})}{R_{m}}+I_{ext}\right)
+\end{equation*}
+\item Computationally simpler than Hodgkin-Huxley
+\item Models neuron as RC circuit with leak term
+\item Doesn't explicitly specify spiking behavior or refractory period, but easy to implement using iterative ODE methods
+\item Possible implementation:
+\begin{figure}
+\begin{BVerbatim}[fontsize=\scriptsize]
+if V(t+1) > threshold:
+   V(t)   <- spike
+   V(t+1) <- hyperpolarize
+if t < refractory period:
+   V(t+1) <- hyperpolarize
+\end{BVerbatim}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Antagonistic Neural Circuits}
+\begin{itemize}
+\item Assume each neuron of RP1 emits an inhibitory neurotransmitter $E_{RP1}$ when spiking, and similarly for CB with $E_{CB}$. Using normalized concentrations, the model is:
+\begin{align*}
+\frac{dV_{RP1}}{dt}&=\frac{1}{C_{RP1}}\left(-\frac{(V_{RP1}-V_{RP1}^{eq})}{R_{RP1}}+I_{ext}\left(1-E_{CB}\right)\right)\\
+\frac{dV_{CB}}{dt}&=\frac{1}{C_{CB}}\left(-\frac{(V_{CB}-V_{CB}^{eq})}{R_{CB}}+I_{ext}\left(1-E_{RP1}\right)\right)\\
+\frac{dE_{RP1}}{dt}&=d_{RP1}E_{RP1}\hspace{2em}\frac{dE_{CB}}{dt}=d_{CB}E_{CB}
+\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Antagonistic Neural Circuits (cont.)}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
