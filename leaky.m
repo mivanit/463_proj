@@ -34,10 +34,10 @@ E = zeros(1, N);
 E2 = zeros(1, N);
    
 % EXTERNAL STIMULUS  -----------------------------------------------------
-s = 50;         % How far apart the pulses are between the neur
+s = 500;         % How far apart the pulses are between the neur
 num_pulses = 6;  % How many pulses for neuron 1
 num_pulses2 = 6;  % How many pulses for neuron 2
-pulse_len = 500; % Length of each pulse (same for both neurons)
+pulse_len = 250; % Length of each pulse (same for both neurons)
 ratio = 1;       % current2/current1
 ix = zeros(num_pulses, 1);
 ix2 = zeros(num_pulses, 1);
@@ -54,8 +54,8 @@ end
 d1 = 0;
 d2 = 0;
 for c = 1 : N - 1
-   V(c+1)=V(c)+(dt/tau) * (-V(c)+vRest+R*Iext(c));
-   V2(c+1)=V2(c)+(dt/tau) * (-V2(c)+vRest+R*Iext2(c));
+   V(c+1)=V(c)+(dt/tau) * (-V(c)+vRest+R*Iext(c)*(1-E2(c)*inhibit));
+   V2(c+1)=V2(c)+(dt/tau) * (-V2(c)+vRest+R*Iext2(c)*(1-E(c)*inhibit));
    E(c+1)=de*E(c)*inhibit;
    E2(c+1)=de*E2(c)*inhibit;
    
