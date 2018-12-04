@@ -10,8 +10,8 @@ vRest = -60;   % rest potential
 vReset = -80;  % reset potential
 vSpike = -10;  % spike potential
 refP = 5;      % absolute refractory period
-de = 0.99;      % decay rate of inhibitory neurotransmitters
-inhibit = 1;   % 1 -> use inhibitory neurotransmitters, 0 -> don't use
+de = 0.9;      % decay rate of inhibitory neurotransmitters
+inhibit = 0;   % 1 -> use inhibitory neurotransmitters, 0 -> don't use
    
 % SETUP ------------------------------------------------------------------
 % time interval for modeling
@@ -34,11 +34,12 @@ E = zeros(1, N);
 E2 = zeros(1, N);
    
 % EXTERNAL STIMULUS  -----------------------------------------------------
-s = 500;         % How far apart the pulses are between the neur
-num_pulses = 6;  % How many pulses for neuron 1
-num_pulses2 = 6;  % How many pulses for neuron 2
-pulse_len = 250; % Length of each pulse (same for both neurons)
-ratio = 1;       % current2/current1
+s = 50;         % How far apart the pulses are between the neur
+num_pulses = 1;  % How many pulses for neuron 1
+num_pulses2 = 2;  % How many pulses for neuron 2
+pulse_len = 350;  % Length of each pulse for neuron 1
+pulse_len2 = 350;  % Length of each pulse for neuron 2
+ratio = 0.986;       % current2/current1
 ix = zeros(num_pulses, 1);
 ix2 = zeros(num_pulses, 1);
 for i = 1:num_pulses
@@ -46,8 +47,8 @@ for i = 1:num_pulses
     Iext(ix(i):ix(i)+pulse_len)=I0;
 end
 for i = 1:num_pulses2
-    ix2(i) = round(i * 2 * pulse_len);
-    Iext2(ix2(i)+s:ix2(i)+pulse_len+s)=ratio*I0;
+    ix2(i) = round(i * 2 * pulse_len2);
+    Iext2(ix2(i)+s:ix2(i)+pulse_len2+s)=ratio*I0;
 end
 
 % Finite Difference method  ==============================================
@@ -56,21 +57,21 @@ d2 = 0;
 for c = 1 : N - 1
    V(c+1)=V(c)+(dt/tau) * (-V(c)+vRest+R*Iext(c)*(1-E2(c)*inhibit));
    V2(c+1)=V2(c)+(dt/tau) * (-V2(c)+vRest+R*Iext2(c)*(1-E(c)*inhibit));
-   E(c+1)=de*E(c)*inhibit;
-   E2(c+1)=de*E2(c)*inhibit;
+   E(c+1)=de*E(c);
+   E2(c+1)=de*E2(c);
    
    % Spike if threshold met, then reset immediately after
    if V(c+1) > vTH
        V(c) = vSpike;
        V(c+1) = vReset;
        d1 = round(refP / dt);
-       E(c+1)=inhibit;
+       E(c+1)=1;
    end
    if V2(c+1) > vTH
        V2(c) = vSpike;
        V2(c+1) = vReset;
        d2 = round(refP / dt);
-       E2(c+1)=inhibit;
+       E2(c+1)=1;
    end
    
    % Keep voltage fixed during refractory period
@@ -85,14 +86,14 @@ for c = 1 : N - 1
 end
 
 % GRAPHICS  ==============================================================
-plot(t, V, 'linewidth', 2)
+plot(t, V, 'linewidth', 1.5)
 hold on
-plot(t, V2, '--', 'linewidth', 1);
+plot(t, V2, 'linewidth', 1.5);
 plot(linspace(0,N*dt), linspace(vTH,vTH), ':', 'linewidth', 1.5);
 xlabel('t [ms]');
 ylabel('V [mV]');
 legend('Neuron 1', 'Neuron 2', 'Threshold Voltage')
-axis([0 0.5*tmax -inf inf])
+axis([0 0.25*tmax -inf inf])
 if inhibit == 1
     title('Inhibitory Action')
 elseif inhibit == 0
