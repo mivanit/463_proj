@@ -1,0 +1,6 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Artifical Neural Networks}{3}{0}{1}
+\beamer@sectionintoc {2}{Biology of Hydra vulgaris}{4}{0}{2}
+\beamer@sectionintoc {3}{Theoretical Framework}{6}{0}{3}
+\beamer@sectionintoc {4}{Optimizations}{10}{0}{4}
+\beamer@sectionintoc {5}{Future Work}{11}{0}{5}

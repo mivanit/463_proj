@@ -1,0 +1,20 @@
+\frametitle{Neuron Model}
+\begin{itemize}
+\item Leaky integrate-and-fire model:
+\begin{equation*}
+\frac{dV_{m}}{dt}=\frac{1}{C_{m}}\left(-\frac{(V_{m}-V_{m}^{eq})}{R_{m}}+I_{ext}\right)
+\end{equation*}
+\item Computationally simpler than Hodgkin-Huxley
+\item Models neuron as RC circuit with leak term
+\item Doesn't explicitly specify spiking behavior or refractory period, but easy to implement using iterative ODE methods
+\item Possible implementation:
+\begin{figure}
+\begin{BVerbatim}[fontsize=\scriptsize]
+if V(t+1) > threshold:
+   V(t)   <- spike
+   V(t+1) <- hyperpolarize
+if t < refractory period:
+   V(t+1) <- hyperpolarize
+\end{BVerbatim}
+\end{figure}
+\end{itemize}
