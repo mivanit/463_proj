@@ -128,12 +128,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Slide Title}
+\begin{frame}{ANN Intro}
 % Useful format
+
+%Introduce ANNs, why they suck for bio, introduce SNNs, mention why they're better.
+
 \begin{definition}
-Introduce ANNs, why they suck for bio, introduce SNNs, mention why they're better.
+Artificial Neural Network (ANN):
+\begin{itemize}
+    \item neurons represented by vertices in a weighted directed graph
+    \item output of a neuron is a function of the weighted sum of inputs
+    \item learning accomplished through modifying edge weights according to some algorithm
+    \item generally are much simpler than biological neural nets, to simplify computations
+\end{itemize}
 \end{definition}
 \end{frame}
+
+
+\begin{frame}{SNN Intro}
+% Useful format
+
+\begin{definition}
+Spiking Neural Network (SNN):
+\begin{itemize}
+    \item more closely resemble biological nets
+    \item fire not during a propagation cycle, but when membrane potential threshold crossed
+    \item models neuron state in a more complex fashion
+    \item more capable than most other types of ANNs, but much more computationally intensive
+\end{itemize}
+\end{definition}
+\end{frame}
+
+\begin{frame}{SNNs continued}
+It is thought that the main advantage of SNNs comes from the ability to encode information in the frequency of pulses and not just in their intensity. 
+\begin{itemize}
+    \item may allow the transmission of more complex information through the combination of signals from different neurons
+\end{itemize}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,11 +189,29 @@ Introduce ANNs, why they suck for bio, introduce SNNs, mention why they're bette
 
 \begin{frame}{Nerve Nets}
 \begin{itemize}
-\item \textit{Hydra} have diffuse nerve nets rather than a CNS
-\item Have 
-\item Once mature, a constant density gradient of neurons is maintained \cite{density}
-\item 
+\item \textit{Hydra} have a diffuse nerve net rather than a CNS
+\item Comprised of photoreceptors, mechanoreceptors, ganglia, and motoneurons
+\item Once mature, a constant density gradient of neurons is maintained
+\item Turns out nerve net is actually composed of non-overlapping circuits that correspond to specific sets of behaviors
 \end{itemize}
+\begin{figure}
+\centering
+\includegraphics[scale=0.25]{hydra_map.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Separate Circuits}
+\begin{itemize}
+\item RP1 associated with longitudinal elongations
+\item RP2 associated with radial contractions
+\item CB associated with longitudinal contractions
+\item STN associated with `nodding' behavior
+\item RP1 and CB are antagonistic, no other interactions
+\end{itemize}
+\begin{figure}
+\center
+\includegraphics[scale=0.325]{hydra_movements.png}
+\end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,13 +221,9 @@ Introduce ANNs, why they suck for bio, introduce SNNs, mention why they're bette
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Title 3}
-How we'll adapt the model for Hydra
-\end{frame}
-
 \begin{frame}[fragile]{Neuron Model}
 \begin{itemize}
-\item Leaky integrate-and-fire model:
+\item Leaky integrate-and-fire (LIF) model:
 \begin{equation*}
 \frac{dV_{m}}{dt}=\frac{1}{C_{m}}\left(-\frac{(V_{m}-V_{m}^{eq})}{R_{m}}+I_{ext}\right)
 \end{equation*}
@@ -211,7 +257,8 @@ if t < refractory period:
 \begin{frame}{Antagonistic Neural Circuits (cont.)}
 \begin{figure}
 \center
-\includegraphics[scale=0.285]{no_inhib.png}\hspace{1em}\includegraphics[scale=0.285]{inhib.png}
+\includegraphics[scale=0.29]{no_inhib.png}\hspace{1em}\includegraphics[scale=0.29]{inhib.png}
+\caption{Simulation of two LIF neurons not acting on each other, and acting antagonistically, respectively. Input current is same in both simulations.}
 \end{figure}
 \end{frame}
 
@@ -223,8 +270,32 @@ if t < refractory period:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Title 4}
-Maybe tensor stuff?
+\begin{frame}{SNN simplifications}
+In our nerve network model, instead of fully simulating a continuous waveform for the state of the neuron, we keep track of the spikes at discrete timesteps instead. The primary advantage of spiked neural networks comes from the temporal coding, and this can be preserved with discrete timesteps.\\
+One advantage of this approach is that the timestep size can be decreased if we find that information is not being encoded temporally as expected, or the size decreased to save on processing power.
+\end{frame}
+
+\begin{frame}{Biological motivation}
+Making no assumptions about which genes affect the structure of the human brain, it is clearly impossible for the exact structure of the $>10^{10}$ neurons and $>10^{12}$ connections between them to be encoded in the mere $4 \cdot 10^{9}$ base pairs of the human genome. However, some structure is clearly present even before any meaningful information is learned. Instead, some general structure may be encoded genetically, and the ``details'' are filled in as the organism develops.
+\end{frame}
+
+\begin{frame}{Tensor Product Optimization}
+We propose imposing non self-similar structure on the ``blank'' (before learning) nerve nets in the following fashion:\\
+Where $H_1, H_2, \ldots, H_L$ are all graphs, we set  
+$$ G = H_1 \otimes H_2 \otimes \cdots \otimes H_L $$
+Where ``$\otimes$'' is the graph tensor product, equivalent to the matrix tensor product of the adjacency matrices of the graphs.\\
+Tensor product $H \otimes K$ is equivalent to replacing every vertex in $H$ with a copy of $K$. Vertices have connections between them if their counterparts in either $H$ or $K$ have edges between them. This means a random walk on $H \otimes K$ can be simulated by a random walk on $H$ and $K$ at the same time.
+\end{frame}
+
+\begin{frame}{Tensor Product Optimization}
+\begin{itemize}
+    \item note that the space required to store a graph as an adjacency matrix is $O(n^2)$ on the number of vertices
+    \item if we assume $H_i$ has $n_i$ vertices, then we only require $ \sum_{i \in [1,L]} (n_i)^2 $ space to store the component graphs
+    \item on the other hand, storing $G$ by itself requires space $ \prod_{i \in [1,L]} (n_i)^2 $
+    \item for large networks, this becomes significant
+    \item Network with 5 layers of 100 neurons each will take only $5 \cdot 10^4$ units of memory to store, but describes a complex network with $100^{5}=10^{10}$ neurons
+    \item Simulating + training this network is still computationally difficult
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,8 +305,12 @@ Maybe tensor stuff?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Title 5}
-It'd be cool to build this, gather real data, and test. Cool to adapt to larger and more complex organisms.
+\begin{frame}{Goals}
+\begin{itemize}
+    \item After creating a network that exhibits temporal signalling behavior, we hope to find the largest timestep $\Delta t$ that preserves this behavior. Knowing the largest allowed $\Delta t$ lets us run simulations faster, and grants insights about the nature of the temporal signalling.
+    \item Extend the tensor product optimization to allow replacement of vertices in $H_i$ with different graphs, not just $H_{i+1}$. This will in theory allow the representation of any graph pattern, not just repeated tensor product.
+    \item Chemical signalling in the human brain plays a far more complicated role than the antagonistic networks in Hydra. Although extending our model to these is outside the scope of this project, perhaps some insight into chemical signalling systems in nerve nets can be gained.
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
