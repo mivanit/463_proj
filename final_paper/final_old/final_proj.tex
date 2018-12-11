@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+
+\begin{document}
+
+\title{Spiking artificial neural networks as a basis for modeling neural circuits in \textit{Hydra}}
+
+\author{Michael Ivanitsky \and Connor Puritz}
+\date{%
+    Department of Mathematics\\ University of Michigan -- Ann Arbor\\[2ex]%
+    \today
+}
+
+\maketitle
+
+\begin{abstract}
+%%%
+\end{abstract}
+
+\section{Introduction}
+\newpage
+
+\section{Artificial Neural Networks}
+\newpage
+
+\section{Anatomy of \textit{Hydra}}
+\textit{Hydra} is a genus of small hydrozoans that have a widespread distribution across many freshwater bodies in both temperate and tropical regions. They morphologically resemble the polyps of many cnidarians, having a radially symmetric body plan consisting of a tubular body column, an adhesive foot, and a crown of tentacles surrounding a mouth. Being such primitive organisms, \textit{Hydra} have a very small and well-defined behavioral repertoire \cite{behavior}. The repertoire appears to be statistically consistent across both individuals and varying environmental conditions, which greatly increases the simplicity of any model constructed of \textit{Hydra}.
+
+Like most Cnidarians, \textit{Hydra} have very simple nervous systems, which are appropriately known as diffuse nerve nets. These are characterized by showing no cephalization of neurons -- that is, no brain or brain-like structures are present. This does not mean that the neurons are distributed homogeneously throughout the body, but the topological structure is certainly much simpler than that in any more complex organism. Nerve nets in cnidarians are an important starting place for studying metazoan nervous systems, as Cnidaria is the second major phylum to branch off from the metazoan evolutionary tree (after Porifera), but the first to develop any sort of nervous system. Modern cnidarians appear to have changed little since their ancestors first appeared, thereby making them the ideal organisms to help us understand basic nervous system functions.
+
+The nerve net of \textit{Hydra} consists of ganglia, photoreceptor, mechanoreceptor, and chemical receptor neurons. The behavioral responses of \textit{Hydra} in response to stimulation of receptor neurons are often easily quantifiable. For example, applying pressure to the body of \textit{Hydra} results in a longitudinal contraction of the body column regardless of the direction of the applied pressure. Thus the response to any mechanical pressure could be quantified as the difference in length of the body column before and after stimulus.
+\newpage
+
+\section{Neuron Model}
+In order model the \textit{Hydra} nerve net, we of course need to choose a model for the neurons themselves. A Hodgkin-Huxley type neuron would likely be most realistic, but repetitively solving a system of differential equations for even several dozen neurons would become to computationally expensive and inefficient to be usable.
+
+We instead propose the use of the much more basic, but still reasonable, leaky integrate and fire neuron. This model treats a neuron as a simple circuit with a capacitor and resistor in parallel. It is modeled by the differential equation:
+\begin{equation*}
+\frac{dV}{dt}=\frac{1}{C}\left(-\frac{(V-V_{eq})}{R}+I_{\mathrm{ext}}\right)
+\end{equation*}
+where $V$ is the voltage across the neuron, $I_{\mathrm{ext}}$ is the input current, $V_{eq}$ is the equilibrium voltage of the neuron, and $C$ and $R$ are constants to be experimentally fitted. 
+As can be seen, this model is very simple, and doesn't actually compute the spiking of the voltage as is the case with a real neuron. This feature must be hard coded in when solving the equation numerically, but this is not hard to do. The usefulness of this model comes from the fact that it is `leaky.' That is, the voltage will always decay back to the equilibrium voltage over time. So if the neuron does not receive a high enough input current, it won't spike, and will instead return to it's equilibrium and wait for more input current.
+\newpage
+
+\section{SNN Model}
+\newpage
+
+\begin{thebibliography}{4}
+\bibitem{snn_intro}
+    Ponulak F., Kasiński A. (2011).
+    Introduction to spiking neural networks: Information processing, learning, and applications.
+    Acta Neurobiol. Exp. 71: 409-433.
+  
+\bibitem{hydra_neural}
+    Dupre, C., Yuste, R. (2017). Non-overlapping Neural Networks in \textit{Hydra vulgaris}. Current Biology \textit{27}, 1085-1097.
+    
+\bibitem{behavior}
+    Han, S., Taralova, E., Dupre, C., Yuste, R. (2018).
+    Comprehensive machine learning analysis of \textit{Hydra} behavior reveals a stable basal behavioral repertoire.
+    eLife 2018;7:e32605.
+    
+\bibitem{density}
+    Sakaguchi, M., Mizusina, A., Kobayakawa, Y. (1996).
+    Structure, Development, and Maintenance of the Nerve Net of the Body Column in \textit{Hydra}.
+    The Journal of Comparative Neurology, 373:41-54.
+\end{thebibliography}
+\end{document}
