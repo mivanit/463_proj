@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  4 DEC 2018 15:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  5 DEC 2018 09:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1012,61 +1012,62 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 (/Users/connorpuritz/Documents/College/Junior_Year/Math_463/463_proj/pres/.texp
 adtmp/Presentation.nav)
-<LSA_logo_1000.png, id=65, 1003.75pt x 142.5325pt>
+<LSA_logo_1000.png, id=66, 1003.75pt x 142.5325pt>
 File: LSA_logo_1000.png Graphic file (type png)
 <use LSA_logo_1000.png>
 Package pdftex.def Info: LSA_logo_1000.png  used on input line 112.
 (pdftex.def)             Requested size: 107.55333pt x 15.27191pt.
-<umich.png, id=67, 501.875pt x 548.0475pt>
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 112.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
  [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
- <./umich.png> <./LSA_logo_1000.png>]
+ <./LSA_logo_1000.png>]
 Package keyval Info: section undefined on input line 121.
 
 (/Users/connorpuritz/Documents/College/Junior_Year/Math_463/463_proj/pres/.texp
-adtmp/Presentation.toc)
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 121.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [2
+adtmp/Presentation.toc) [2
 
 ]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 136.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [3
+<ann.png, id=191, 613.29124pt x 320.19624pt>
+File: ann.png Graphic file (type png)
+<use ann.png>
+Package pdftex.def Info: ann.png  used on input line 143.
+(pdftex.def)             Requested size: 183.98878pt x 96.0596pt.
+
+Overfull \vbox (7.51697pt too high) detected at line 143
+ []
+
+[3
+
+ <./ann.png>] [4
 
 ]
-<hydra.png, id=219, 352.31625pt x 436.63126pt>
+<hydra.png, id=284, 352.31625pt x 436.63126pt>
 File: hydra.png Graphic file (type png)
 <use hydra.png>
-Package pdftex.def Info: hydra.png  used on input line 156.
+Package pdftex.def Info: hydra.png  used on input line 172.
 (pdftex.def)             Requested size: 70.46199pt x 87.32469pt.
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 156.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [4
-
- <./hydra.png>]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 164.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
  [5
 
-]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 175.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
+ <./hydra.png>]
+<hydra_map.png, id=332, 548.0475pt x 392.46625pt>
+File: hydra_map.png Graphic file (type png)
+<use hydra_map.png>
+Package pdftex.def Info: hydra_map.png  used on input line 185.
+(pdftex.def)             Requested size: 137.01154pt x 98.11632pt.
  [6
+
+ <./hydra_map.png>]
+<hydra_movements.png, id=379, 422.57875pt x 421.575pt>
+File: hydra_movements.png Graphic file (type png)
+<use hydra_movements.png>
+Package pdftex.def Info: hydra_movements.png  used on input line 199.
+(pdftex.def)             Requested size: 137.33646pt x 137.01024pt.
+
+Overfull \vbox (1.66759pt too high) detected at line 199
+ []
+
+[7
+
+ <./hydra_movements.png>] [8
 
 ]
 \openout4 = `Presentation.vrb'.
@@ -1095,57 +1096,37 @@ line 4.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-))
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 197.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [7
+)) [9
+
+] [10
 
 ]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 208.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [8
-
-]
-<no_inhib.png, id=433, 497.86pt x 395.4775pt>
+<no_inhib.png, id=569, 497.86pt x 395.4775pt>
 File: no_inhib.png Graphic file (type png)
 <use no_inhib.png>
-Package pdftex.def Info: no_inhib.png  used on input line 215.
-(pdftex.def)             Requested size: 141.89157pt x 112.71225pt.
-<inhib.png, id=434, 491.8375pt x 398.48875pt>
+Package pdftex.def Info: no_inhib.png  used on input line 256.
+(pdftex.def)             Requested size: 144.3757pt x 114.68553pt.
+<inhib.png, id=570, 491.8375pt x 398.48875pt>
 File: inhib.png Graphic file (type png)
 <use inhib.png>
-Package pdftex.def Info: inhib.png  used on input line 215.
-(pdftex.def)             Requested size: 140.17514pt x 113.57047pt.
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 215.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [9
-
- <./no_inhib.png> <./inhib.png>]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 227.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [10
-
-]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 238.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
+Package pdftex.def Info: inhib.png  used on input line 256.
+(pdftex.def)             Requested size: 142.62921pt x 115.55878pt.
  [11
 
+ <./no_inhib.png> <./inhib.png>] [12
+
+] [13
+
+] [14
+
+] [15
+
+] [16
+
 ]
-File: umich.png Graphic file (type png)
-<use umich.png>
-Package pdftex.def Info: umich.png  used on input line 253.
-(pdftex.def)             Requested size: 28.90755pt x 31.56015pt.
- [12
+[17
+
+] [18
 
 ]
 \tf@nav=\write7
@@ -1157,37 +1138,40 @@ Package pdftex.def Info: umich.png  used on input line 253.
 \tf@snm=\write9
 \openout9 = `Presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 256.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 256.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 331.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 331.
 
 (/Users/connorpuritz/Documents/College/Junior_Year/Math_463/463_proj/pres/.texp
 adtmp/Presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 256.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 256.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 331.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 331.
 Package rerunfilecheck Info: File `Presentation.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
  ) 
 Here is how much of TeX's memory you used:
- 21478 strings out of 492649
- 422782 string characters out of 6129622
- 513302 words of memory out of 5000000
- 24826 multiletter control sequences out of 15000+600000
- 12395 words of font info for 47 fonts, out of 8000000 for 9000
+ 21474 strings out of 492649
+ 422103 string characters out of 6129622
+ 516227 words of memory out of 5000000
+ 24812 multiletter control sequences out of 15000+600000
+ 12994 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,20n,61p,779b,762s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
 Output written on /Users/connorpuritz/Documents/College/Junior_Year/Math_463/46
-3_proj/pres/.texpadtmp/Presentation.pdf (12 pages, 610901 bytes).
+3_proj/pres/.texpadtmp/Presentation.pdf (18 pages, 1719489 bytes).
 PDF statistics:
- 637 PDF objects out of 1000 (max. 8388607)
- 568 compressed objects within 6 object streams
- 34 named destinations out of 1000 (max. 500000)
- 170 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 991 PDF objects out of 1000 (max. 8388607)
+ 901 compressed objects within 10 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 

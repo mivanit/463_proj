@@ -1,6 +1,6 @@
 \frametitle{Neuron Model}
 \begin{itemize}
-\item Leaky integrate-and-fire model:
+\item Leaky integrate-and-fire (LIF) model:
 \begin{equation*}
 \frac{dV_{m}}{dt}=\frac{1}{C_{m}}\left(-\frac{(V_{m}-V_{m}^{eq})}{R_{m}}+I_{ext}\right)
 \end{equation*}
@@ -13,7 +13,7 @@
 if V(t+1) > threshold:
    V(t)   <- spike
    V(t+1) <- hyperpolarize
-if t < refractory period:
+if t in refractory period:
    V(t+1) <- hyperpolarize
 \end{BVerbatim}
 \end{figure}
