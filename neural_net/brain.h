@@ -20,7 +20,7 @@ graph layers [NUM_LAYERS];
 unordered_map < neuron_coord, neuron > active_neurons;
 // edges that have been modified
 unordered_map < neuron_coord, edge_m > mod_edges;
-unordered_map < neuron_coord, edge_m > add_edges;
+// unordered_map < neuron_coord, edge_m > add_edges;
 
 public:
 
@@ -59,18 +59,16 @@ void fire_all_adj(neuron & n, uint8_t layer)
 		// access graph_testing 's data at n.c[layer] (the coordinate in the layer)
 		// this tells us if the neuron with identical coordinates, but c[layer] set to "i"
 		// is connected
-		if ( zero_f(graph_testing.data[coord[layer]][i].wgt) )
+		// if nonzero wgt
+		if ( !zero_f(graph_testing.data[coord[layer]][i].wgt) )
 		{
 			// test if edge modified
-			if (mod_edges.find(nrn_crd_replace(coord, layer, i)) != mod_edges.end())
-			{
-				
-			}
+			neuron_coord coord_test = nrn_crd_replace(coord, layer, i);
+			
 		}
 
-		x  add_spike (V_SPIKEAMP * x.wgt, TIME_CURRENT + x.delay)
 
-		if ( layer < NUM_LAYERS )
+		if ( layer < NUM_LAYERS - 1 )
 		{
 			// if not at bottom layer
 			// for every adjacent neuron, recurse
@@ -79,12 +77,27 @@ void fire_all_adj(neuron & n, uint8_t layer)
 	}
 }
 
+inline void push_spike_to_neuron(neuron_coord & source, uint8_t layer, uint8_t i)
+{
+	auto iter_test = mod_edges.find(source);
+	spike elt = spike();
+
+	if ( iter_test == mod_edges.end())
+	{
+		// if not modified, use actual val
+		// FIXME: double check arr scubscripts here
+		edge_base & e = edge_base();
+		e = layers[layer].data[source[layer]][i];
+		elt = spike(V_SPIKEAMP * e.wgt, TIME_CURRENT + e.delay)
 
 
-
-
-
-
+	}
+	else
+	{
+		// if modified, use whatever was found
+		edge_m 
+	}
+}
 
 
 

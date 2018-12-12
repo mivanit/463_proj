@@ -51,6 +51,11 @@ const voltage V_DECAY = 0.1;
 
 struct spike
 {
+	spike() : v(0) {}
+
+	spike(voltage in_volt, time in_time)
+		: v(in_volt), t(in_time) {}
+
 	voltage v;
 	time t;
 };
