@@ -6,7 +6,9 @@
 #ifndef NEURON
 #define NEURON
 
-#include "consts_template.h"
+#include <limits>
+
+#include "input/consts_template.h"
 
 using namespace std;
 
@@ -25,10 +27,24 @@ typedef uint8_t neuron_coord [NUM_LAYERS];
 
 class neuron
 {
-// stores time voltage hits, voltage, and coordinate
-time t;
-voltage v;	
+// stores time voltages hit, voltage, and coordinate
 neuron_coord c;
+spikeTrain spikes_in;
+
+// FIXME: use heapify for spike train vector
+// FIXME: optimize by reading several before calling heapify again?
+spikeTrain get_spikes_out()
+{
+	spikeTrain output;
+	// read until current time
+	while (spikes_in.top().t < TIME_CURRENT)
+	{
+		
+	}
+}
+
+
+
 };
 
 

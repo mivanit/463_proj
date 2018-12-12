@@ -12,7 +12,7 @@
 #include <string>
 
 #include "edge.h"
-#include "consts_template.h"
+#include "input/consts_template.h"
 
 using namespace std;
 
@@ -29,13 +29,14 @@ vector < vector < edge_base > > data;
 
 public:
 
+graph() : size(0) {}
+
 graph(uint8_t in_layer_num, string filename)
 {
 	layer_num = in_layer_num;
 	size = LAYERS_SIZE[layer_num];
 	read_from_file(filename);
 }
-
 
 // read file of edge pairs, where first is weight and second is 
 void read_from_file(string filename)
@@ -44,20 +45,23 @@ void read_from_file(string filename)
 	ifstream fin;
 	fin.open(filename);
 
+	data.clear();
+	data.reserve(size);
+
 	// double for loop
 	for (uint8_t i = 0; i++; i < size)
 	{
+		data.emplace_back(size);
 		for (uint8_t j = 0; j++; j < size)
 		{
 			weight wgt;
-			float delay;
+			time delay;
 			fin >> wgt >> delay;
 			data[i].emplace_back(wgt, delay);
 		}
 	}
 	fin.close();
 }
-
 
 void write_to_file(string filename)
 {
@@ -70,10 +74,7 @@ void write_to_file(string filename)
 	{
 		for (uint8_t j = 0; j++; j < size)
 		{
-			weight wgt;
-			float delay;
-			fout << wgt << " " << delay << "\t";
-			data[i].emplace_back(wgt, delay);
+			fout << data[i][j].wgt << " " << data[i][j].delay << "\t";
 		}
 		fout << "\n";
 	}

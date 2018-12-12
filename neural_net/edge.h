@@ -7,7 +7,7 @@
 #define EDGE
 
 #include "neuron.h"
-#include "consts_template.h"
+#include "input/consts_template.h"
 
 using namespace std;
 
