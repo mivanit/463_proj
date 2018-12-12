@@ -12,27 +12,35 @@
 using namespace std;
 
 // modified edge weight
-struct edge
+struct edge_base
 {
-	neuron_coord in;
-	neuron_coord out;
+	edge_base(weight in_wgt, float in_delay = 0)
+		: wgt(in_wgt), delay(in_delay) {}
+
 	weight wgt;
+	float delay;
 };
 
 // input edge
-struct edge_in
+struct edge_in : public edge_base
 {
 	uint8_t in;
 	neuron_coord out;
-	weight wgt;
 };
 
 // output edge
-struct edge_out
+struct edge_out : public edge_base
 {
 	neuron_coord in;
 	uint8_t out;
-	weight wgt;
 };
+
+struct edge : public edge_base
+{
+	neuron_coord in;
+	neuron_coord out;
+};
+
+
 
 #endif
