@@ -18,16 +18,36 @@ using namespace std;
 
 class graph
 {
-private:
+
+/*
+########     ###    ########    ###
+##     ##   ## ##      ##      ## ##
+##     ##  ##   ##     ##     ##   ##
+##     ## ##     ##    ##    ##     ##
+##     ## #########    ##    #########
+##     ## ##     ##    ##    ##     ##
+########  ##     ##    ##    ##     ##
+*/
+
+public:
 // layer of the overarching neural network
 uint8_t layer_num;
 // number of neurons
 uint8_t size;
 
+
 // adjacency matrix
 vector < vector < edge_base > > data;
 
-public:
+/*
+ ######  ########  #######  ########
+##    ##    ##    ##     ## ##     ##
+##          ##    ##     ## ##     ##
+##          ##    ##     ## ########
+##          ##    ##     ## ##   ##
+##    ##    ##    ##     ## ##    ##
+ ######     ##     #######  ##     ##
+*/
 
 graph() : size(0) {}
 
@@ -37,6 +57,16 @@ graph(uint8_t in_layer_num, string filename)
 	size = LAYERS_SIZE[layer_num];
 	read_from_file(filename);
 }
+
+/*
+####       ##  #######
+ ##       ##  ##     ##
+ ##      ##   ##     ##
+ ##     ##    ##     ##
+ ##    ##     ##     ##
+ ##   ##      ##     ##
+#### ##        #######
+*/
 
 // read file of edge pairs, where first is weight and second is 
 void read_from_file(string filename)

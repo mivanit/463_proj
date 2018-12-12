@@ -41,6 +41,11 @@ struct edge : public edge_base
 	neuron_coord out;
 };
 
+struct edge_m : public edge_base
+{
+	neuron_coord out;
+};
+
 
 
 #endif

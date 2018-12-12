@@ -71,12 +71,32 @@ inline bool operator() (const int& lhs, const int&rhs) const
 typedef priority_queue < spike, vector < spike >, spike_timesort > spikeTrain;
 
 // margin for comparing floats
-const float EPSILON;
+const float EPSILON = 0.1;
 
 // code for comparing two floats
 inline bool compf(float a, float b)
 {
     return fabs(a - b) <= EPSILON;
 }
+
+inline bool zero_f(float a)
+{
+	return fabs(a) <= EPSILON;
+}
+
+
+
+
+// custom type of "neuron_coord" as a size_t array of length NUM_LAYERS
+typedef uint8_t neuron_coord [NUM_LAYERS];
+
+// TODO: optimize this
+inline neuron_coord nrn_crd_replace(neuron_coord c, uint8_t layer, uint8_t value)
+{
+	c[layer] = value;
+	return c;
+}
+
+
 
 #endif
