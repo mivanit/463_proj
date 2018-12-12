@@ -10,6 +10,8 @@
 #ifndef CONSTS
 #define CONSTS
 
+using namespace std;
+
 // consts
 
 // number of layers limited to 255
@@ -34,9 +36,18 @@ typedef float voltage;
 // timestamp type
 typedef uint16_t time;
 
-const voltage V_THRESHOLD = 0.0;
-const voltage V_SPIKEAMP = 100.0;
+time TIME_CURRENT = 0;
+
+// resting voltage
+const voltage V_REST = 0.0;
+// threshold voltage to fire neuron
+const voltage V_THRESHOLD = 100.0;
+// amplitude of spikes, if threshold crossed
+const voltage V_SPIKEAMP = 1000.0;
+// voltage the next timestep after firing
 const voltage V_RECOVERY = -30.0;
+// percentage of voltage remaining after every timestep, if not fired
+const voltage V_DECAY = 0.1;
 
 struct spike
 {
@@ -44,8 +55,28 @@ struct spike
 	time t;
 };
 
-typedef priority_queue < spike > spikeTrain;
+class spike_timesort
+{
+public:
+spike_timesort() {}
 
-time TIME_CURRENT = 0;
+// comparator for spikes
+inline bool operator() (const int& lhs, const int&rhs) const
+{
+	return (lhs.t < rhs.t);
+}
+
+};
+
+typedef priority_queue < spike, vector < spike >, spike_timesort > spikeTrain;
+
+// margin for comparing floats
+const float EPSILON;
+
+// code for comparing two floats
+inline bool compf(float a, float b)
+{
+    return fabs(a - b) <= EPSILON;
+}
 
 #endif

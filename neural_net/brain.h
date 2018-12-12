@@ -26,7 +26,9 @@ brain(vector < string > filenames)
 	{
 		data[i] = graph( i, filenames[i] );
 	}
-}
+};
+
+// TODO: unoredered map for neurons?
 
 
 
