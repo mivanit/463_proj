@@ -184,4 +184,180 @@ Package pdftexcmds Info: \pdfdraftmode found.
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 438.
 Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on in
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 21.
+ ("C:\Program Files (x86)\MiKTex\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 21.
+ ("C:\Program Files (x86)\MiKTex\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+{C:/Users/mivan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+
+LaTeX Warning: Citation `behavior' on page 2 undefined on input line 37.
+
+
+LaTeX Warning: File `final_paper/hydra.jpg' not found on input line 41.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:41: Package pdftex.def Error: File `final_paper/hydra.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Citation `behavior' on page 2 undefined on input line 42.
+
+
+LaTeX Warning: Citation `behavior' on page 2 undefined on input line 42.
+
+
+LaTeX Warning: Citation `first' on page 2 undefined on input line 47.
+
+
+LaTeX Warning: Citation `neuron_count' on page 2 undefined on input line 49.
+
+
+LaTeX Warning: Citation `density' on page 2 undefined on input line 49.
+
+[2]
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 51.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 53.
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 55.
+("C:\Program Files (x86)\MiKTex\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 55.
+
+
+LaTeX Warning: File `old/hydra_movements.png' not found on input line 62.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:62: Package pdftex.def Error: File `old/hydra_movements.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 63.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 63.
+
+
+LaTeX Warning: File `old/hydra_map.png' not found on input line 69.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:69: Package pdftex.def Error: File `old/hydra_map.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 70.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 70.
+
+[3]
+
+LaTeX Warning: File `final_paper/lifV.jpg' not found on input line 91.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:91: Package pdftex.def Error: File `final_paper/lifV.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `final_paper/lifI.jpg' not found on input line 97.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:97: Package pdftex.def Error: File `final_paper/lifI.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:lifV' on page 4 undefined on input line 98.
+
+
+LaTeX Warning: Reference `fig:lifV' on page 4 undefined on input line 98.
+
+[4]
+
+LaTeX Warning: File `final_paper/noinhib.jpg' not found on input line 119.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:119: Package pdftex.def Error: File `final_paper/noinhib.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `final_paper/inhib.jpg' not found on input line 125.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:125: Package pdftex.def Error: File `final_paper/inhib.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:noinhib' on page 5 undefined on input line 126.
+
+
+LaTeX Warning: Reference `fig:noinhib' on page 5 undefined on input line 126.
+
+[5] [6] [7] [8]
+Overfull \hbox (10.87637pt too wide) in paragraph at lines 180--181
+\OT1/cmr/m/n/10 con-nec-tions alone, but also in the tim-ing and fre-quency of the pulses $[]$.
+ []
+
+[9] [10] (final_paper.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3507 strings out of 492972
+ 51792 string characters out of 3135001
+ 119405 words of memory out of 3000000
+ 7325 multiletter control sequences out of 15000+200000
+ 12983 words of font info for 50 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,12n,41p,1128b,345s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on final_paper.pdf (10 pages, 210963 bytes).
+PDF statistics:
+ 99 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
