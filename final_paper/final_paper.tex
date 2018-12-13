@@ -256,19 +256,25 @@ To implement the Hydra's antagonistic nerve nets into our SNN model, we would ha
 
 Chemical signalling in the human brain plays a far more complex role than the relatively simple antagonistic networks in \textit{Hydra}. Extending our model to the human brain is far outside the scope of this project or even modern technology, but perhaps some insight into chemical signalling systems in nerve nets can be gained.
 
-In particular, learning algorithms in biological creatures seem to have a chemical-based reward system. This is in stark contrast to backpropogation in most ANNs, which has little to no biological analogy and is useful only in comparatively narrow use cases.
+In particular, learning algorithms in biological creatures seem to have a chemical-based reward system. This is in stark contrast to backpropogation in most ANNs, which has little to no biological analogy and is useful only in comparatively narrow use cases. Learning efficiency is one of the great disparities between biological and artificial neural networks, and it would be interesting to see if the tensor product can be used to help simulate localized neurotransmitter concentrations.
 
 % TODO: more on chem signalling as learning
+
+\newpage
 
 \subsection{Frequency-Domain encoding}
 
 \subsubsection{Motivation}
 
-It is clear that biological neurons do not encode information in the strength of connections alone, but also in the timing and frequency of the pulses $^{[citation \ needed]}$. Both of these are theoretically taken into account in SNNs, but in practicality SNNs are too computationally intensive to model to properly utilize this behavior on a large scale. On the other hand, most other ANNs use only the amplitude of pulses, without taking into account repeated firings, and this limits their capabilities as well as efficiency. We propose the following novel system of artificial neural networks.
+It is clear that biological neurons do not encode information in the strength of connections alone, but also in the timing and frequency of the pulses. Both of these are theoretically taken into account in SNNs, but in practicality SNNs are too computationally intensive to model to properly utilize this behavior on a large scale. On the other hand, most other ANNs use only the amplitude of pulses, without taking into account repeated firings, and this limits their capabilities as well as efficiency. We propose the following novel system of artificial neural networks.
 
 \subsubsection{Model}
 
 As in a spiking neural network, we store the directed weighted graph $G$ of connections between neurons and some set of data for each neuron. However, instead of storing the costly time-domain in each neuron, we propose representing the action potential of a neuron $v$ through an array $A = [p_1, p_2, \ldots, p_r]$ where $A_v[p]$ gives the amplitude of the component of the action potential with period $p$. $r$ here is the global frequency resolution of the network, and can be adjusted between simulation runs. The values of $p$ for which $A_v[p]$ stores amplitudes is determined by a global variable as well. 
+
+\subsection{Tensor product extension}
+
+The graph tensor product $A \otimes B = C$ allows the replacement of every vertex in $A$ with a copy of $B$, but this means that the local structure of the network everywhere is identical. It may be possible to preserve some of the gains made through using the tensor product, but allow greater variety in local structure, by defining a new operation (which we will denote $\oplus_{H,K}$). We define $(A_1 \otimes B_1) \oplus_K (A_2 \otimes B_2) = C$ as the normal tensor products $A_1 \otimes B_1$ and $A_2 \otimes B_2$, but with additional connections specified through $H,K$. $H$ is a set of edges between vertices from $A_1, A_2$, and $K$ is likewise a set of edges on vertices from $B_1, B_2$. If $K$ allows a connection between $a_1 \in A_1$ and $a_2 \in A_2$, then in the full product $C$, there will be connections between the children of $a_1, a_2$ if $K$ specified such a connection between their corresponding vertices in $B_1, B_2$. Actually implementing such a system is something far beyond our scope, and we have not made any steps in this direction.
 
 %$A_v[0]$ is defined to always store the resting voltage of that particular neuron
 
@@ -313,7 +319,7 @@ As in a spiking neural network, we store the directed weighted graph $G$ of conn
 \newpage
 
 \section*{Appendix A: SNN source code}
-All included code is original work. Newest version of the code and commit history can be found at \emph{https://github.com/mivanit/463_proj}
+All included code is original work. Newest version of the code and commit history can be found at \verb{ https://github.com/mivanit/463_proj
 
 \subsection*{Constant definitions template file}
 \begin{verbatim}
@@ -561,25 +567,18 @@ inline void add_spike(spike & input)
 \subsection*{Edge objects}
 
 \begin{verbatim}
-
 // file with edge class stuff
-
 #ifndef EDGE
 #define EDGE
-
 #include "neuron.h"
 #include "input/consts_template.h"
-
 using namespace std;
-
 // modified edge weight
 struct edge_base
 {
   edge_base() : wgt(0) {}
-
   edge_base(weight in_wgt, float in_delay = 0)
     : wgt(in_wgt), delay(in_delay) {}
-
   weight wgt;
   float delay;
 };
@@ -594,7 +593,7 @@ struct edge_in : public edge_base
 // output edge
 struct edge_out : public edge_base
 {
-    neuron_coord in;
+  neuron_coord in;
   uint8_t out;
 };
 
@@ -605,11 +604,7 @@ struct edge : public edge_base
 };
 
 struct edge_m : public edge_base
-{
-  neuron_coord in;
-};
-
-
+{    neuron_coord in;    };
 #endif
 \end{verbatim}
 
@@ -799,7 +794,6 @@ void step()
 void fire_manual(neuron_coord & c)
 {
     spike elt = spike();
-
     // find if neuron has been activated
     auto iter_n = active_neurons.find(c);
 
@@ -821,10 +815,7 @@ void fire_manual(neuron_coord & c)
 void fire(neuron & n)
 {
     // if the neuron should fire at this timestep
-    if (n.try_fire())
-    {
-        fire_all_adj(n, 0);
-    }
+    if (n.try_fire()) fire_all_adj(n, 0);
 }
 
 // recursive function to fire all neurons adjacent to an input neuron "n"
@@ -838,16 +829,16 @@ void fire_all_adj(neuron & n, uint8_t layer)
     for ( uint8_t i = 0; i < graph_testing.size; i++ )
     {
         // access graph_testing 's data at n.c[layer] (the coordinate in the layer)
-        // this tells us if the neuron with identical coordinates, but c[layer] set to "i"
-        // is connected to our neuron n
+        // this tells us if the neuron with identical coordinates, 
+        // but c[layer] set to "i" is connected to our neuron n
 
         // if nonzero wgt
         if ( !zero_f(graph_testing.data[coord[layer]][i].wgt) )
         {
-            push_spike_thru_edge(coord_pair(coord, coord.nrn_crd_replace(layer, i)), layer);
+            push_spike_thru_edge(
+                coord_pair(coord, coord.nrn_crd_replace(layer, i)), layer);
         }
     }
-    
     
     if ( layer < NUM_LAYERS - 1 )
     {
@@ -859,9 +850,7 @@ void fire_all_adj(neuron & n, uint8_t layer)
 inline void push_spike_thru_edge(coord_pair p, uint8_t L)
 {
     auto iter_e = mod_edges.find(p);
-
     spike elt = spike();
-
     // check if edge has been modified
     if ( iter_e == mod_edges.end() )
     {
@@ -893,12 +882,8 @@ inline void push_spike_thru_edge(coord_pair p, uint8_t L)
         iter_n->second.add_spike(elt);
     }
 }
-
-
 };
-
 #endif
-    
 \end{verbatim}
 
 % TODO: SNN source code
