@@ -66,7 +66,7 @@ public:
 spike_timesort() {}
 
 // comparator for spikes
-inline bool operator() (const int& lhs, const int&rhs) const
+inline bool operator() (const spike & lhs, const spike & rhs) const
 {
 	return (lhs.t < rhs.t);
 }
@@ -93,15 +93,33 @@ inline bool zero_f(float a)
 
 
 // custom type of "neuron_coord" as a size_t array of length NUM_LAYERS
-typedef uint8_t neuron_coord [NUM_LAYERS];
-
-// TODO: optimize this
-inline neuron_coord nrn_crd_replace(neuron_coord c, uint8_t layer, uint8_t value)
+struct neuron_coord
 {
-	c[layer] = value;
-	return c;
-}
+	neuron_coord() {}
 
+	neuron_coord(neuron_coord * input)
+	{
+		for (uint8_t L = 0; L < NUM_LAYERS; L++)
+		{
+			data[L] = input->data[L];
+		}
+	}
+
+	uint8_t data [NUM_LAYERS];
+
+	inline uint8_t operator [] (uint8_t L)
+	{
+		return data[L];
+	}
+
+	// TODO: optimize this
+	inline neuron_coord nrn_crd_replace(uint8_t layer, uint8_t value)
+	{
+		neuron_coord c(this);
+		c.data[layer] = value;
+		return c;
+	}
+}
 
 
 #endif

@@ -19,8 +19,8 @@ graph layers [NUM_LAYERS];
 // neurons with nonzero voltage
 unordered_map < neuron_coord, neuron > active_neurons;
 // edges that have been modified
-unordered_map < neuron_coord, edge_m > mod_edges;
-// unordered_map < neuron_coord, edge_m > add_edges;
+unordered_map < coord_pair, edge > mod_edges;
+unordered_map < neuron_coord, edge > add_edges;
 
 public:
 
@@ -63,7 +63,7 @@ void fire_all_adj(neuron & n, uint8_t layer)
 		if ( !zero_f(graph_testing.data[coord[layer]][i].wgt) )
 		{
 			// test if edge modified
-			neuron_coord coord_test = nrn_crd_replace(coord, layer, i);
+			neuron_coord coord_test = coord.nrn_crd_replace(layer, i);
 			
 		}
 
@@ -72,30 +72,28 @@ void fire_all_adj(neuron & n, uint8_t layer)
 		{
 			// if not at bottom layer
 			// for every adjacent neuron, recurse
-			fire_all_adj(c, layer + 1);
+			fire_all_adj(n, layer + 1);
 		}
 	}
 }
 
-inline void push_spike_to_neuron(neuron_coord & source, uint8_t layer, uint8_t i)
+inline void push_spike_to_neuron(coord_pair p, uint8_t L)
 {
-	auto iter_test = mod_edges.find(source);
-	spike elt = spike();
+	auto iter_test = mod_edges.find(p);
 
-	if ( iter_test == mod_edges.end())
+	// spike elt = spike();
+
+	if ( iter_test == mod_edges.end() )
 	{
 		// if not modified, use actual val
-		// FIXME: double check arr scubscripts here
-		edge_base & e = edge_base();
-		e = layers[layer].data[source[layer]][i];
+		// TODO: double check arr scubscripts here
+		edge_base & e = layers[ L ].data[ p.in[ L ] ][ p.out[ L ] ];
 		elt = spike(V_SPIKEAMP * e.wgt, TIME_CURRENT + e.delay)
-
-
 	}
 	else
 	{
 		// if modified, use whatever was found
-		edge_m 
+		iter_test->second. 
 	}
 }
 

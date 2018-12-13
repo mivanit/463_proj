@@ -45,9 +45,16 @@ struct edge : public edge_base
 
 struct edge_m : public edge_base
 {
-	neuron_coord out;
+	neuron_coord in;
 };
 
+struct coord_pair
+{
+	neuron_coord in;
+	neuron_coord out;
+
+	coord_pair(neuron_coord & a, neuron_coord & b) : in(a), out (b) {}
+}
 
 
 #endif
