@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <queue>
 #include <vector>
+#include <math.h>
 
 #ifndef CONSTS
 #define CONSTS
@@ -51,7 +52,7 @@ const voltage V_DECAY = 0.1;
 
 struct spike
 {
-	spike() : v(0) {}
+	spike() : v(V_SPIKEAMP), t(TIME_CURRENT + 1) {}
 
 	spike(weight wgt, time delay)
 		: v(V_SPIKEAMP * wgt), t(TIME_CURRENT + delay) {}
@@ -89,9 +90,6 @@ inline bool zero_f(float a)
 	return fabs(a) <= EPSILON;
 }
 
-
-
-
 // custom type of "neuron_coord" as a size_t array of length NUM_LAYERS
 struct neuron_coord
 {
@@ -126,7 +124,22 @@ struct neuron_coord
 		c.data[layer] = value;
 		return c;
 	}
-}
+};
+
+struct coordHasher
+{
+	size_t operator()(const neuron_coord & c) const
+	{
+		size_t out = 0;
+		for (uint8_t i = 0; i < NUM_LAYERS; i++)
+		{
+			(out ^ (hash<uint8_t>(c[i]) << 1)) >> 1;
+			out = hash<size_t>(out)
+		}
+
+		return out;
+	}
+};
 
 
 #endif

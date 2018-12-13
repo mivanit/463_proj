@@ -11,6 +11,8 @@
 #include "nets.h"
 #include "util/err_util.h"
 
+using namespace std;
+
 class brain
 {
 private:
@@ -78,9 +80,25 @@ void step()
 	}
 }
 
-void fire_manual()
+void fire_manual(neuron_coord & c)
 {
-	
+	spike elt = spike();
+
+	// find if neuron has been activated
+	auto iter_n = active_neurons.find(c);
+
+	if (iter_n == active_neurons.end())
+	{
+		// if found, add to that neuron
+		iter_n->second.add_spike(elt);
+	}
+	else
+	{
+		// if not, create a new neuron and add this spike to it
+		active_neurons.emplace(c, neuron(c));
+		iter_n = active_neurons.find(c);
+		iter_n->second.add_spike(elt);
+	}
 }
 
 void fire(neuron & n)
@@ -154,6 +172,8 @@ inline void push_spike_thru_edge(coord_pair p, uint8_t L)
 	{
 		// if not, create a new neuron and add this spike to it
 		active_neurons.emplace(p.out, neuron(p.out));
+		iter_n = active_neurons.find(p.out);
+		iter_n->second.add_spike(elt);
 	}
 }
 
