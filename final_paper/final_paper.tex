@@ -28,7 +28,7 @@
 
 \section{Artificial Neural Networks}
 % TODO: ANN intro
-An Artificial Neural Network (ANN) is a weighted directed graph, with input nodes and output nodes, usually trained to perform some computational task. They are loosely based on the idea that biological neurons form graphs between them, and that the strength of connections between neurons (edge weight in the graph) plays a role in computation. A notable difference that we will be exploring is that although it is thought that neurons encode information in either the exact times of pulses, frequency of pulses, or both, most artificial neural networks do no such thing. Despite this, the availability of huge amounts of data and large amounts of processing power has enabled the recent emergence of feed-forward neural networks capable of performing such formerly impossible tasks such as image recognition. Feed-forward neural networks are even less similar to biological neural networks, but the simulation of a propogation cycle in a feed-forward neural net is nothing but easy matrix multiplication, and thus attractive from a computational standpoint.
+An Artificial Neural Network (ANN) is a weighted directed graph, with input nodes and output nodes, usually trained to perform some computational task. They are loosely based on the idea that biological neurons form connections between them, and that the strength of connections between neurons (edge weight in the graph) plays a role in computation. A notable difference that we will be exploring is that although it is thought that neurons encode information in either the exact times of pulses, frequency of pulses, or both, most artificial neural networks do no such thing. Despite this, the availability of huge amounts of data and large amounts of processing power has enabled the recent emergence of feed-forward neural networks capable of performing such formerly impossible tasks such as image recognition. Feed-forward neural networks are even less similar to biological neural networks, but the simulation of a propagation cycle in a feed-forward neural net is nothing but easy matrix multiplication, and thus attractive from a computational standpoint. We will be investigating an alternate method of simulating Spiked Neural Networks, which take into account the timing and frequency of signals and are in general more similar to biological neural networks.
 
 \newpage
 
@@ -75,9 +75,9 @@ In \cite{hydra}, four main circuits and (some of) their corresponding behaviors 
     \caption{Distribution of neurons in each circuit. Image taken from \cite{hydra}.}
     \label{fig:map}
 \end{figure}
-
+\vspace{1in}
 \newpage
-
+$$ \quad $$
 \section{Neuron Model}
 \subsection{Leaky Integrate-and-Fire Model}
 In order model the \textit{Hydra} nerve net, we of course need to choose a model for the neurons themselves. A variant of the Hodgkin-Huxley neuron model would be most realistic, but repetitively solving a coupled system of differential equations for even a few dozen neurons would quickly become too computationally expensive and inefficient.
@@ -104,6 +104,8 @@ As can be seen, this model is very simple, and doesn't actually simulate the spi
   \label{fig:lifI}
 \end{minipage}
 \end{figure}
+
+\newpage
 
 \subsection{Antagonistic Neurons}
 We now turn our attention to the case of antagonistic neurons. We previously mentioned that, in \textit{Hydra}, the activity of the RP1 neural circuit is negatively impacted by the activity of the CB circuit. The exact mechanisms behind this are not known, so we propose the following neurotransmitter model:
@@ -163,6 +165,8 @@ Note that the space required to store a graph as an adjacency matrix is $O(n^2)$
 For our applications, of course, we are not trying to simulate a random walk on the vertices, and the computational savings are not as drastic as those in memory. Instead, we use the properties of the graph tensor product to store the components $\listvec{H}{L}$, output and input vertex and edge sets $K_i, K_o$, and modifications $\M$. In the beginning, we start without any modifications to the whole graph, and $\M$ does not take up any memory. While this method does not do much to simplify the computations themselves, it requires far less memory, as only vertices that are ``active'' are stored. 
 
 Our function $\M : (G, t) \mapsto G_t$ is what we might call a ``learning function.'' In reality, its output depends on the fitness function of the neural network at completing some task, as well as the specifics of which output neurons have incorrect values. We will not be delving into the specifics of the learning function $\M$ in this project, or trying to implement some novel system for this, as this is outside our scope. However it is worth noting that in most artificial feed-forward neural networks, the function would simply modify the weights of the edges of $G$ in accordance to some fitness function. However, for our purposes, modification of the underlying product components $\listvec{H}{L}$ may be advantageous, particularly in the early stages of learning. This is because modifications to the underlying product components create large changes in the structure of the network at little computational expense.
+
+Additionally, the tensor product model makes it easy to create the disconnected antagonistic neurons of \emph{Hydra}. This is because if any $H_i$ of the components $H_1, \ldots, H_L$ has $c$ distinct components, then the graph as a whole must have $\geq c$ distinct components regardless of the structure of the other components. Thus, we can create as many separate connected graph components as we need only by modifying a single layer. However, the interaction between the antagonistic networks requires more work. (see section \ref{hydra_ant_SNN})
 
 \newpage
 
@@ -241,7 +245,10 @@ Additionally:
 
 \subsection{Chemical Signalling}
 
-\subsubsection{Incorporation of Hydra antagonistic neurons into modified SNN}
+\subsubsection{Incorporation of Hydra antagonistic neurons into modified SNN} \label{hydra_ant_SNN}
+
+To implement the Hydra's antagonistic nerve nets into our SNN model, we would have to implement a form of chemical signalling. We could do this by having a variable that keeps track of the amount of a certain neurotransmitter (such as $E_{RP1}$ or $E_{CB}$). The level would increase when neurons of the RP1 or CB circuit spike, and a higher level would repress the spike strengths of the neurons in the antagonistic circuit. However, this would assume that the level of neurotransmitter is uniform throughout the organism, and a non-uniform gradient of the neurotransmitter might play an important role in the behavior of Hydra. One option is to use the upper layers of the tensor product model to divide the organism into regions, each with their own neurotransmitter concentration. This is far less computationally intensive than continuously modelling concentration over the entire organism, and also makes it easier to determine which neurons affect and are affected by the concentration in a region.
+
 
 % TODO: more on chem signalling
 
@@ -265,21 +272,11 @@ As in a spiking neural network, we store the directed weighted graph $G$ of conn
 
 %$A_v[0]$ is defined to always store the resting voltage of that particular neuron
 
-\subsubsection{Operation}
+%\subsubsection{Operation}
 
 % TODO: describe operation of frequency domain network
 
-In principle, using a frequency domain model should be somewhat similar to the 
-
-
-
-
-
-
-\section*{Appendix A: SNN source code}
-% TODO: SNN source code
-
-
+%In principle, using a frequency domain model should be somewhat similar to the 
 
 \newpage
 
@@ -313,4 +310,600 @@ In principle, using a frequency domain model should be somewhat similar to the
     Wilhelm Roux' Archiv 171, 269-285.
 
 \end{thebibliography}
+\newpage
+
+\section*{Appendix A: SNN source code}
+All included code is original work. Newest version of the code and commit history can be found at \emph{https://github.com/mivanit/463_proj}
+
+\subsection*{Constant definitions template file}
+\begin{verbatim}
+
+// file with compile-time constants
+
+#include <cstdint>
+#include <queue>
+#include <vector>
+#include <math.h>
+
+#ifndef CONSTS
+#define CONSTS
+
+using namespace std;
+
+// these values should be set by a separate program before compile time
+// using constant values improves speed significantly
+
+// consts
+
+// number of layers limited to 255
+const uint8_t NUM_LAYERS = 4;
+
+// number of nodes in any layer limited to 255
+// network can thus have up to 255^255 or ~4.653e613 neurons
+// 5 layers -> up to ~1.078 trillion (255^5) neurons
+uint8_t LAYERS_SIZE [NUM_LAYERS] = {
+5,
+5,
+5,
+5
+};
+
+// input/output size is up to 65535, this can be changed relatively easily
+const uint16_t SIZE_INPUT = 5;
+const uint16_t SIZE_OUTPUT = 5;
+typedef float weight;
+// voltage type
+typedef float voltage;
+// timestamp type
+typedef uint16_t time;
+
+time TIME_CURRENT = 0;
+
+// resting voltage
+const voltage V_REST = 0.0;
+// threshold voltage to fire neuron
+const voltage V_THRESHOLD = 100.0;
+// amplitude of spikes, if threshold crossed
+const voltage V_SPIKEAMP = 1000.0;
+// voltage the next timestep after firing
+const voltage V_RECOVERY = -30.0;
+// percentage of voltage remaining after every timestep, if not fired
+const voltage V_DECAY = 0.1;
+
+struct spike
+{
+  spike() : v(V_SPIKEAMP), t(TIME_CURRENT + 1) {}
+
+  spike(weight wgt, time delay)
+    : v(V_SPIKEAMP * wgt), t(TIME_CURRENT + delay) {}
+
+  voltage v;
+  time t;
+};
+
+class spike_timesort
+{
+public:
+spike_timesort() {}
+
+// comparator for spikes
+inline bool operator() (const spike & lhs, const spike & rhs) const
+{
+  return (lhs.t < rhs.t);
+}
+
+};
+
+typedef priority_queue < spike, vector < spike >, spike_timesort > spikeTrain;
+
+// margin for comparing floats
+const float EPSILON = 0.1;
+
+// code for comparing two floats
+inline bool compf(float a, float b)
+{
+    return fabs(a - b) <= EPSILON;
+}
+
+inline bool zero_f(float a)
+{
+  return fabs(a) <= EPSILON;
+}
+
+// custom type of "neuron_coord" as a size_t array of length NUM_LAYERS
+struct neuron_coord
+{
+  neuron_coord() {}
+
+  neuron_coord(uint8_t * in_data) 
+  {
+    for (uint8_t L = 0; L < NUM_LAYERS; L++)
+    {
+      data[L] = in_data[L];
+    }
+  }
+  neuron_coord(neuron_coord * input)
+  {
+    for (uint8_t L = 0; L < NUM_LAYERS; L++)
+    {
+      data[L] = input->data[L];
+    }
+  }
+
+  uint8_t data [NUM_LAYERS];
+
+  inline uint8_t operator [] (uint8_t L)
+  {
+    return data[L];
+  }
+
+  // TODO: optimize this
+  inline neuron_coord nrn_crd_replace(uint8_t layer, uint8_t value)
+  {
+    neuron_coord c(this);
+    c.data[layer] = value;
+    return c;
+  }
+};
+
+struct coord_pair
+{
+  neuron_coord in;
+  neuron_coord out;
+
+  coord_pair(neuron_coord & a, neuron_coord & b) : in(a), out (b) {}
+};
+
+struct coordHasher
+{
+  coordHasher() {}
+
+  size_t operator()(const neuron_coord & c) const
+  {
+    size_t out = 0;
+    for (uint8_t i = 0; i < NUM_LAYERS; i++)
+    {
+      (out ^ (hash<uint8_t>()(c.data[i]) << 1)) >> 1;
+      out = hash<size_t>()(out);
+    }
+
+    return out;
+  }
+};
+
+struct coordPairHasher
+{
+  coordHasher hash_crd = coordHasher();
+
+  size_t operator()(const coord_pair & p) const
+  {
+    return (hash_crd(p.in) ^ hash_crd(p.out));
+  }
+};
+
+
+#endif
+
+\end{verbatim}
+
+\newpage 
+
+\subsection*{Neuron object}
+
+\begin{verbatim}
+
+// file with neuron class stuff
+
+#ifndef NEURON
+#define NEURON
+
+#include <limits>
+
+#include "input/consts_template.h"
+
+using namespace std;
+
+class neuron
+{
+public:
+// stores time voltages hit, voltage, and coordinate
+neuron_coord c;
+spikeTrain spikes_in;
+voltage v;
+time t;
+
+neuron( neuron_coord in_c ) : v(V_REST), t(TIME_CURRENT) {}
+
+
+// FIXME: use heapify for spike train vector
+// FIXME: optimize by reading several before calling heapify again?
+bool try_fire()
+{  
+  // if the time is too far in the past, reset voltage to rest value
+  if (t + 1 < TIME_CURRENT) v = V_REST;
+  t = TIME_CURRENT;
+
+  // read until current time
+  while (spikes_in.top().t <= TIME_CURRENT)
+  {
+    // updates only voltage at current time
+    v += spikes_in.top().t;
+  }
+
+  // test if it fired
+  if (v > V_THRESHOLD)
+  {
+    // set voltage next step to the recovery voltage after firing
+    v = V_RECOVERY;
+    return true;
+  }
+  else
+  {
+    // otherwise, the voltage to the next timestep should decay
+    v *= V_DECAY;
+    return false;
+  }
+}
+
+// add_spike()
+inline void add_spike(spike & input)
+{
+  spikes_in.push(input);
+}
+};
+
+#endif
+
+\end{verbatim}
+
+\newpage
+
+\subsection*{Edge objects}
+
+\begin{verbatim}
+
+// file with edge class stuff
+
+#ifndef EDGE
+#define EDGE
+
+#include "neuron.h"
+#include "input/consts_template.h"
+
+using namespace std;
+
+// modified edge weight
+struct edge_base
+{
+  edge_base() : wgt(0) {}
+
+  edge_base(weight in_wgt, float in_delay = 0)
+    : wgt(in_wgt), delay(in_delay) {}
+
+  weight wgt;
+  float delay;
+};
+
+// input edge
+struct edge_in : public edge_base
+{
+  uint8_t in;
+  neuron_coord out;
+};
+
+// output edge
+struct edge_out : public edge_base
+{
+    neuron_coord in;
+  uint8_t out;
+};
+
+struct edge : public edge_base
+{
+  neuron_coord in;
+  neuron_coord out;
+};
+
+struct edge_m : public edge_base
+{
+  neuron_coord in;
+};
+
+
+#endif
+\end{verbatim}
+
+\newpage 
+
+\subsection*{Component graph object}
+
+\begin{verbatim}
+
+// i/o structs, graphs of layers
+
+#ifndef NETS
+#define NETS
+
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+
+#include "edge.h"
+#include "input/consts_template.h"
+
+using namespace std;
+
+class graph
+{
+
+public:
+// layer of the overarching neural network
+uint8_t layer_num;
+// number of neurons
+uint8_t size;
+
+
+// adjacency matrix
+vector < vector < edge_base > > data;
+
+
+graph() : size(0) {}
+
+graph(uint8_t in_layer_num, string filename)
+{
+    layer_num = in_layer_num;
+    size = LAYERS_SIZE[layer_num];
+    read_from_file(filename);
+}
+
+// read file of edge pairs, where first is weight and second is 
+void read_from_file(string filename)
+{
+    // open file
+    ifstream fin;
+    fin.open(filename);
+
+    data.clear();
+    data.reserve(size);
+
+    // double for loop
+    for (uint8_t i = 0; i++; i < size)
+    {
+        data.emplace_back(size);
+        for (uint8_t j = 0; j++; j < size)
+        {
+            weight wgt;
+            time delay;
+            fin >> wgt >> delay;
+            data[i].emplace_back(wgt, delay);
+        }
+    }
+    fin.close();
+}
+
+void write_to_file(string filename)
+{
+    // open file
+    ofstream fout;
+    fout.open(filename);
+
+    // double for loop
+    for (uint8_t i = 0; i++; i < size)
+    {
+        for (uint8_t j = 0; j++; j < size)
+        {
+            fout << data[i][j].wgt << " " << data[i][j].delay << "\t";
+        }
+        fout << "\n";
+    }
+    fout.flush();
+    fout.close();
+}
+
+};
+
+#endif
+
+\end{verbatim}
+
+\newpage 
+
+\subsection*{Full network object}
+
+\begin{verbatim}
+
+// puts everything together
+
+#ifndef BRAIN
+#define BRAIN
+
+#include <unordered_map>
+#include <queue>
+#include "nets.h"
+#include "util/err_util.h"
+
+using namespace std;
+
+class brain
+{
+private:
+
+// array for layers
+graph layers [NUM_LAYERS];
+// neurons with nonzero voltage
+unordered_map < neuron_coord, neuron, coordHasher > active_neurons;
+// edges that have been modified
+unordered_map < coord_pair, edge_base, coordPairHasher > mod_edges;
+unordered_map < neuron_coord, edge, coordHasher > add_edges;
+
+public:
+
+brain() {}
+
+brain(vector < string > filenames)
+{
+    CHK_ERROR_FATAL(filenames.size() != NUM_LAYERS, "wrong number of filenames");
+    
+    for (uint8_t i = 0; i < NUM_LAYERS; i++)
+    {
+        layers[i] = graph( i, filenames[i] );
+    }
+}
+
+// iterate single timestep
+void step()
+{
+    // update time
+    TIME_CURRENT++;
+    // iterate over active_neurons
+    auto iter = active_neurons.begin();
+
+    queue < neuron_coord > to_erase;
+
+    while (iter != active_neurons.end())
+    {
+        neuron & n = iter->second;
+        // if there are any spikes at all
+        if (!(n.spikes_in.empty()))
+        {
+            // try to see if there is a spike at the current timestep
+            if (n.spikes_in.top().t <= TIME_CURRENT)
+            {
+                // if yes, try to fire the neuron
+                fire(n);
+            }
+        }
+        else
+        {
+            // if there are no spikes, test the time since last update
+            if ( n.t <= TIME_CURRENT - 1 )
+            {
+                // if it has been long enough, mark the neuron for removal
+                to_erase.push(n.c);
+            }
+        }
+    }
+
+    // wipe marked neurons
+    // this is to avoid index invalidation of the hash map
+    while (!to_erase.empty()) 
+    {
+        active_neurons.erase(to_erase.front());
+        to_erase.pop();
+    }
+}
+
+
+// manually fire a neuron (such as an input neuron)
+void fire_manual(neuron_coord & c)
+{
+    spike elt = spike();
+
+    // find if neuron has been activated
+    auto iter_n = active_neurons.find(c);
+
+    if (iter_n == active_neurons.end())
+    {
+        // if found, add to that neuron
+        iter_n->second.add_spike(elt);
+    }
+    else
+    {
+        // if not, create a new neuron and add this spike to it
+        active_neurons.emplace(c, neuron(c));
+        iter_n = active_neurons.find(c);
+        iter_n->second.add_spike(elt);
+    }
+}
+
+// test if a neuron with incoming spikes should fire
+void fire(neuron & n)
+{
+    // if the neuron should fire at this timestep
+    if (n.try_fire())
+    {
+        fire_all_adj(n, 0);
+    }
+}
+
+// recursive function to fire all neurons adjacent to an input neuron "n"
+void fire_all_adj(neuron & n, uint8_t layer)
+{
+    graph & graph_testing = layers[layer];
+    neuron_coord coord;
+    // for every adjacent neuron in the layer
+    // 			   	   graph	adjlst   entry
+    // 			   layers[layer].data[ n.c[layer] ]
+    for ( uint8_t i = 0; i < graph_testing.size; i++ )
+    {
+        // access graph_testing 's data at n.c[layer] (the coordinate in the layer)
+        // this tells us if the neuron with identical coordinates, but c[layer] set to "i"
+        // is connected to our neuron n
+
+        // if nonzero wgt
+        if ( !zero_f(graph_testing.data[coord[layer]][i].wgt) )
+        {
+            push_spike_thru_edge(coord_pair(coord, coord.nrn_crd_replace(layer, i)), layer);
+        }
+    }
+    
+    
+    if ( layer < NUM_LAYERS - 1 )
+    {
+        // if not at bottom layer, recurse
+        fire_all_adj(n, layer + 1);
+    }
+}
+
+inline void push_spike_thru_edge(coord_pair p, uint8_t L)
+{
+    auto iter_e = mod_edges.find(p);
+
+    spike elt = spike();
+
+    // check if edge has been modified
+    if ( iter_e == mod_edges.end() )
+    {
+        // if not modified, use actual val
+        // access graph at correct layer, 
+        edge_base & e = layers[ L ].data[ p.in[ L ] ][ p.out[ L ] ];
+        elt = spike(e.wgt, e.delay);
+    }
+    else
+    {
+        // if modified, use whatever was found
+        edge_base & e = iter_e->second;
+        elt = spike(e.wgt, e.delay);
+    }
+
+    // find if neuron has been activated
+    auto iter_n = active_neurons.find(p.out);
+
+    if (iter_n == active_neurons.end())
+    {
+        // if found, add to that neuron
+        iter_n->second.add_spike(elt);
+    }
+    else
+    {
+        // if not, create a new neuron and add this spike to it
+        active_neurons.emplace(p.out, neuron(p.out));
+        iter_n = active_neurons.find(p.out);
+        iter_n->second.add_spike(elt);
+    }
+}
+
+
+};
+
+#endif
+    
+\end{verbatim}
+
+% TODO: SNN source code
+
+
+
+
 \end{document}
