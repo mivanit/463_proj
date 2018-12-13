@@ -1,2 +1,5 @@
 **/desktop.ini
 **/DS_store
+**/*.gz
+**/*.aux
+**/*.log
