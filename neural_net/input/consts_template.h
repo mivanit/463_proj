@@ -13,6 +13,9 @@
 
 using namespace std;
 
+// these values should be set by a separate program before compile time
+// using constant values improves speed significantly
+
 // consts
 
 // number of layers limited to 255
@@ -126,8 +129,18 @@ struct neuron_coord
 	}
 };
 
+struct coord_pair
+{
+	neuron_coord in;
+	neuron_coord out;
+
+	coord_pair(neuron_coord & a, neuron_coord & b) : in(a), out (b) {}
+};
+
 struct coordHasher
 {
+	coordHasher() {}
+
 	size_t operator()(const neuron_coord & c) const
 	{
 		size_t out = 0;
@@ -143,10 +156,11 @@ struct coordHasher
 
 struct coordPairHasher
 {
-	coordHasher crdHash();
+	coordHasher hash_crd = coordHasher();
+
 	size_t operator()(const coord_pair & p) const
 	{
-		return (crdHash(p.in) ^ crdHash(p.out));
+		return (hash_crd(p.in) ^ hash_crd(p.out));
 	}
 };
 

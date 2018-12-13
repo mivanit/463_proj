@@ -39,6 +39,7 @@ brain(vector < string > filenames)
 	}
 }
 
+// iterate single timestep
 void step()
 {
 	// update time
@@ -73,6 +74,7 @@ void step()
 	}
 
 	// wipe marked neurons
+	// this is to avoid index invalidation of the hash map
 	while (!to_erase.empty()) 
 	{
 		active_neurons.erase(to_erase.front());
@@ -80,6 +82,8 @@ void step()
 	}
 }
 
+
+// manually fire a neuron (such as an input neuron)
 void fire_manual(neuron_coord & c)
 {
 	spike elt = spike();
@@ -101,6 +105,7 @@ void fire_manual(neuron_coord & c)
 	}
 }
 
+// test if a neuron with incoming spikes should fire
 void fire(neuron & n)
 {
 	// if the neuron should fire at this timestep
@@ -110,7 +115,7 @@ void fire(neuron & n)
 	}
 }
 
-
+// recursive function to fire all neurons adjacent to an input neuron "n"
 void fire_all_adj(neuron & n, uint8_t layer)
 {
 	graph & graph_testing = layers[layer];
