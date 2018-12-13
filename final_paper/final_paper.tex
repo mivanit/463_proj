@@ -1,9 +1,16 @@
 \documentclass{article}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,graphicx,subcaption}
+
+\newcommand{\listvec}[2]{#1_1, #1_2, \ldots, #1_{#2}}
+\newcommand{\listvecn}[1]{#1_1, #1_2, \ldots, #1_n}
+
+\newcommand{\tensProd}{\otimes}
+\newcommand{\graphSum}{\oplus}
+
+\newcommand{\M}{\mathbb{M}}
 
 \begin{document}
-
-\title{Spiking artificial neural networks as a basis for modeling neural circuits in \textit{Hydra}}
+\title{Spiking artificial neural networks as a basis for modeling neural circuits in Hydra}
 
 \author{Michael Ivanitsky \and Connor Puritz}
 \date{%
@@ -14,44 +21,186 @@
 \maketitle
 
 \begin{abstract}
-%%%
-\end{abstract}
 
-\section{Introduction}
-\newpage
+\end{abstract}
 
 \section{Artificial Neural Networks}
 \newpage
 
-\section{Anatomy of \textit{Hydra}}
-\textit{Hydra} is a genus of small hydrozoans that have a widespread distribution across many freshwater bodies in both temperate and tropical regions. They morphologically resemble the polyps of many cnidarians, having a radially symmetric body plan consisting of a tubular body column, an adhesive foot, and a crown of tentacles surrounding a mouth. Being such primitive organisms, \textit{Hydra} have a very small and well-defined behavioral repertoire \cite{behavior}. The repertoire appears to be statistically consistent across both individuals and varying environmental conditions, which greatly increases the simplicity of any model constructed of \textit{Hydra}.
+\section{Biology of \textit{Hydra}}
+\subsection{Description}
+\label{subsection:description}
+\textit{Hydra} is a genus of small hydrozoans (phylum Cnidaria) that have a widespread distribution across many freshwater bodies in both temperate and tropical regions. They morphologically resemble the polyps of many cnidarians, having a radially symmetric body plan consisting of a tubular body column, an adhesive foot, and a crown of tentacles surrounding a central mouth.
 
-Like most Cnidarians, \textit{Hydra} have very simple nervous systems, which are appropriately known as diffuse nerve nets. These are characterized by showing no cephalization of neurons -- that is, no brain or brain-like structures are present. This does not mean that the neurons are distributed homogeneously throughout the body, but the topological structure is certainly much simpler than that in any more complex organism. Nerve nets in cnidarians are an important starting place for studying metazoan nervous systems, as Cnidaria is the second major phylum to branch off from the metazoan evolutionary tree (after Porifera), but the first to develop any sort of nervous system. Modern cnidarians appear to have changed little since their ancestors first appeared, thereby making them the ideal organisms to help us understand basic nervous system functions.
+Being such primitive organisms, \textit{Hydra} have a very small and well-defined behavioral repertoire. Behaviors include feeding, a few types of locomotion (although they are predominantly sessile), and several movements of unknown purpose, such as swaying and bending.
 
-The nerve net of \textit{Hydra} consists of ganglia, photoreceptor, mechanoreceptor, and chemical receptor neurons. The behavioral responses of \textit{Hydra} in response to stimulation of receptor neurons are often easily quantifiable. For example, applying pressure to the body of \textit{Hydra} results in a longitudinal contraction of the body column regardless of the direction of the applied pressure. Thus the response to any mechanical pressure could be quantified as the difference in length of the body column before and after stimulus.
+The set of behaviors has been shown to be statistically consistent across both individuals and varying environmental conditions \cite{behavior}. Whether this is due to the simple structure of \textit{Hydra} nervous systems, or due to the adaptability of \textit{Hydra}, is unknown. In either case, this well-defined behavioral set makes \textit{Hydra} a good candidate for the model organism in any number of studies, including ours.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.35]{final_paper/hydra.jpg}
+    \caption{Two \textit{Hydra} specimens. Image taken from \cite{behavior}.}
+    \label{fig:hydra}
+\end{figure}
+
+\subsection{Nervous System}
+Cnidaria is the second major phylum to branch off from the metazoan evolutionary tree (after Porifera), but the first to develop any sort of nervous system \cite{first}. As such, cnidarians, including \textit{Hydra}, have very simple nervous systems known as diffuse nerve nets. These are characterized by showing no cephalization of neurons -- that is, no brain or brain-like structures are present. This does not mean that the neurons are distributed homogeneously throughout the body. In fact, different types of neurons display very different density gradients throughout the body, usually corresponding to the region of the body they control. That said, the topological structure of a \textit{Hydra} nerve net is still much simpler than the structure of nervous systems in higher organisms. Given the small size of \textit{Hydra} (usually 10mm in length), electrical currents will propagate across the whole body so quickly that when modeling the system, ignoring any topological structure will be a good approximation.
+
+The nerve net of \textit{Hydra} is fairly small, with no more than a few thousand neurons in the largest of specimens \cite{neuron_count}. \textit{Hydra} have an interesting property that, once mature, they maintain a constant neuronal density throughout their body. Neurons are constantly lost through the sloughing of cells near the extremities, but they are regenerated at a rate such that the density of neurons remains constant \cite{density}. This is good for modeling, since a small, static neural network is computationally much cheaper than a dynamic one, and such an assumption is indeed realistic here.
+
+Originally, the nerve net was thought to be divided into two sections, with one in the endoderm and one in the ectoderm. However, we now know that the nerve net is composed of several circuits \cite{hydra}. Each circuit appears to fire only during certain behaviors, and the circuits never fire in response to the same stimulus. What is most interesting though is that the circuits are nonoverlapping, so each neuron belongs to only one circuit. While at least two circuits do interact (which we will go into detail on later), those that don't can be modeled independently of the others, which will greatly reduce computational complexity since each circuit model will only have to predict a few behaviors.
+
+In \cite{hydra}, four main circuits and (some of) their corresponding behaviors were found and analyzed.
+\begin{itemize}
+    \item The RP1 circuit corresponds to longitudinal elongations of the body column and tentacles in response to changes in light. It is located in the ectoderm.
+    \item The RP2 circuit corresponds to radial contractions of the body column. It is located in the endoderm.
+    \item The CB circuit corresponds to longitudinal contractions of the body column and tentacles. It is located in the ectoderm.
+    \item The STN circuit corresponds to a behavior known as `nodding', which is of unknown purpose. It is located at the base of the tentacles.
+\end{itemize}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.5]{old/hydra_movements.png}
+    \caption{The four main circuits in the \textit{Hydra} nerve net and their corresponding behaviors. Image taken from \cite{hydra}.}
+    \label{fig:movements}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.5]{old/hydra_map.png}
+    \caption{Distribution of neurons in each circuit. Image taken from \cite{hydra}.}
+    \label{fig:map}
+\end{figure}
+
 \newpage
 
 \section{Neuron Model}
-In order model the \textit{Hydra} nerve net, we of course need to choose a model for the neurons themselves. A Hodgkin-Huxley type neuron would likely be most realistic, but repetitively solving a system of differential equations for even several dozen neurons would become to computationally expensive and inefficient to be usable.
+\subsection{Leaky Integrate-and-Fire Model}
+In order model the \textit{Hydra} nerve net, we of course need to choose a model for the neurons themselves. A variant of the Hodgkin-Huxley neuron model would be most realistic, but repetitively solving a coupled system of differential equations for even a few dozen neurons would quickly become too computationally expensive and inefficient.
 
-We instead propose the use of the much more basic, but still reasonable, leaky integrate and fire neuron. This model treats a neuron as a simple circuit with a capacitor and resistor in parallel. It is modeled by the differential equation:
-\begin{equation*}
-\frac{dV}{dt}=\frac{1}{C}\left(-\frac{(V-V_{eq})}{R}+I_{\mathrm{ext}}\right)
-\end{equation*}
-where $V$ is the voltage across the neuron, $I_{\mathrm{ext}}$ is the input current, $V_{eq}$ is the equilibrium voltage of the neuron, and $C$ and $R$ are constants to be experimentally fitted. 
-As can be seen, this model is very simple, and doesn't actually compute the spiking of the voltage as is the case with a real neuron. This feature must be hard coded in when solving the equation numerically, but this is not hard to do. The usefulness of this model comes from the fact that it is `leaky.' That is, the voltage will always decay back to the equilibrium voltage over time. So if the neuron does not receive a high enough input current, it won't spike, and will instead return to it's equilibrium and wait for more input current.
+We instead propose the use of the much more basic, but still reasonable, leaky integrate-and-fire (LIF) neuron model. This model treats a neuron as a simple circuit with a capacitor and resistor in parallel. It is modeled by the differential equation:
+\begin{equation}
+\frac{dV}{dt}=\frac{1}{C}\left(-\frac{(V-V_{\mathrm{eq}})}{R}+I_{\mathrm{ext}}\right)
+\end{equation}
+where $V$ is the voltage across the neuron, $I_{\mathrm{ext}}$ is the input current, $V_{\mathrm{eq}}$ is the equilibrium voltage of the neuron, and $C$ and $R$ are constants to be experimentally fitted. 
+As can be seen, this model is very simple, and doesn't actually simulate the spiking and subsequent hyperpolarization of the voltage, as is expected with actual neurons. These features, as well as a refractory period, must be hard coded in when solving the equation numerically, but this is not hard to do. The usefulness of this model comes from the fact that it is `leaky.' That is, the voltage will always decay back to the equilibrium voltage over time. So if the neuron does not receive a high enough input current, it won't spike, but will instead return to it's equilibrium and wait.
+
+\begin{figure}[!htb]
+\centering
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[width=0.975\linewidth]{final_paper/lifV.jpg}
+  \captionof{figure}{Plot of the membrane volt-\\age of a single LIF neuron.}
+  \label{fig:lifV}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[width=0.975\linewidth]{final_paper/lifI.jpg}
+  \captionof{figure}{Plot of the current running through the neuron in Figure \ref{fig:lifV}.}
+  \label{fig:lifI}
+\end{minipage}
+\end{figure}
+
+\subsection{Antagonistic Neurons}
+We now turn our attention to the case of antagonistic neurons. We previously mentioned that, in \textit{Hydra}, the activity of the RP1 neural circuit is negatively impacted by the activity of the CB circuit. The exact mechanisms behind this are not known, so we propose the following neurotransmitter model:
+\begin{itemize}
+    \item When an RP1 (resp. CB) neuron spikes, it releases some fixed amount a neurotransmitter $E_{RP1}$ (resp. $E_{CB}$). This neurotransmitter then decays or is inactivated at some rate $d_{RP1}$ (resp. $d_{CB}$).
+    \item $E_{RP1}$ (resp. $E_{CB}$) binds to CB (resp. RP1) neurons and decreases their electrical excitability.
+    \item The effect of each neurotransmitter is directly proportional to their concentration. Some constant $\alpha_{RP1}$ (resp. $\alpha_{CB}$) determines how effective $E_{RP1}$ (resp. $E_{CB}$) is at inhibiting the activity of CB (resp. RP1) neurons.
+\end{itemize}
+Below is a system of equations that describes the interaction of a single LIF RP1 neuron with a single LIF CB neuron.
+\begin{align}
+&\frac{dV_{RP1}}{dt}=\frac{1}{C_{RP1}}\left(-\frac{(V_{RP1}-V_{RP1}^{\mathrm{eq}})}{R_{RP1}}+I_{RP1}^{\mathrm{ext}}\left(1-\alpha_{CB}\frac{\left[E_{CB}\right]}{\left[E_{CB}\right]_{\max}}\right)\right)\\
+&\frac{dV_{CB}}{dt}=\frac{1}{C_{CB}}\left(-\frac{(V_{CB}-V_{CB}^{\mathrm{eq}})}{R_{CB}}+I_{CB}^{\mathrm{ext}}\left(1-\alpha_{RP1}\frac{\left[E_{RP1}\right]}{\left[E_{RP1}\right]_{\max}}\right)\right)\\
+&\frac{d\left[E_{RP1}\right]}{dt}=d_{RP1}\left[E_{RP1}\right]\\&\frac{d\left[E_{CB}\right]}{dt}=d_{CB}\left[E_{CB}\right]
+\end{align}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{final_paper/noinhib.jpg}
+    \caption{Plot of membrane voltages of two non-antagonistic neurons. Note that Neuron 1 fires right before Neuron 2.}
+    \label{fig:noinhib}
+\end{figure}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{final_paper/inhib.jpg}
+    \caption{Same as Figure \ref{fig:noinhib}, but models the neurons as antagonistic now. Note that the first spike of Neuron 2 now occurs slightly later, and that it is unable to spike a second time.}
+    \label{fig:inhib}
+\end{figure}
+
+To scale this to $n$ neurons, we could have the $i$-th neuron in the RP1 circuit increase the concentration of $E_{RP1}$ by $[E_{RP1}]_{i}=[E_{RP1}]_{\max}/n$ each time it fires. Then the total concentration will be at most $\sum_{i=1}^{n}[E_{RP1}]_{i}=[E_{RP1}]_{\max}$. Each of the $n$ concentrations would need to have its own decay equation, and the interaction term in the CB neuron equation would depend on the sum of the $[E_{RP1}]_{i}$. Of course, this all assumes that the release of a neurotransmitter by one neuron instantly affects all other neurons in the opposing circuit. To account for any such time delay would be interesting but challenging, and given the tiny size of \textit{Hydra}, would be a fairly negligible improvement. 
+
 \newpage
 
-\section{SNN Model}
+\section{simplified SNN Model}
+
+\subsection{Outline}
+
+%TODO
+
+In our full neuronal network code, instead of keeping track of the system of differential equations for every neuron, we keep track of the input spikes at discrete intervals.
+
+one attempted simplification of the neuron model that we make is that instead of keeping track of of a system of differential equations for each neuron, we instead keep track of when the neuron receives spikes from other neurons. We also use the tensor product optimization (described below) to simplify storing large directed graphs.
+
+\subsection{Tensor Product Optimization}
+
+We assume that the graph structure of a biological neural network at some time $t$ can be modeled by a time dependent function $\M$ that transforms the edge and vertex sets of an initial graph $G$ in some fashion. Further, we will model networks under the assumption that the initial structure of $G$ before any edge weights are modified can be represented in the following fashion:
+Where $H_1, H_2, \ldots, H_L$ are all directed weighted graphs representing repeated structure, and $K_i , K_o$ the sets input and output nodes with connections to $G$, we set  
+$$ G = (H_1 \otimes H_2 \otimes \cdots \otimes H_L) \cup K_i \cup K_o $$
+
+The reasons for this assumption are as follows. Consider the tensor product $ C = A \otimes B$ of two graphs $A,B$ with $|V_A| = h, |V_B| = k$. When we take the tensor product, each vertex in $A$ is replaced by a copy of the graph $B$. The resultant product graph has a connection between any two vertices $v_1, v_2 \in C$ if and only if there is a connection in either $A$ or $B$ between the vertices $v_1^a, v_2^a$ or $v_1^b, v_2^b$ where $v_i^a$ is the vertex in $A$ that $v_i$ corresponds to (and likewise for $v_i^b$ and $B$). We note that the size of the vertex set of $C$ is $h \cdot k$. However, we can simulate a random walk on $C$ with only $(h + k)$ memory for the vertices, despite the vastly increased complexity of the graph.  This is because in a graph tensor product, a random walk on the whole graph $C$ can be performed just by performing a random walk on every product component at the same time, when the choice of product $A$ or $B$ on which to perform a random walk is made randomly.
+
+Note that the space required to store a graph as an adjacency matrix is $O(n^2)$ on the number of vertices. If we assume $H_i$ has $n_i$ vertices, then we only require $ \sum_{i \in [1,L]} (n_i)^2 $ space to store the component graphs. On the other hand, storing $G$ by itself requires space $ \prod_{i \in [1,L]} (n_i)^2 $. For large networks, the size differences become extreme. For example, we consider a network $X$ with 5 layers $Y_1, \ldots, Y_5$ of 100 neurons each will take only $5 \cdot 10^4$ units of memory to store by adjacency matrices. This 5-layer network $X$ describes a complex network with $100^{5}=10^{10}$ neurons that would take an adjacency matrix of size $10^{20}$ to describe. Assuming 1 byte memory per connection (A fairly low estimate), the 5-layer network takes up about 50MB, while it's counterpart takes around a million TB to store directly.Simulation of a random walk on such a graph is still quite easy, computationally.
+
+For our applications, of course, we are not trying to simulate a random walk on the vertices, and the computational savings are not as drastic as those in memory. Instead, we use the properties of the graph tensor product to store the components $\listvec{H}{L}$, output and input vertex and edge sets $K_i, K_o$, and modifications $\M$. In the beginning, we start without any modifications to the whole graph, and $\M$ does not take up any memory. While this method does not do much to simplify the computations themselves, it requires far less memory, as only vertices that are ``active'' are stored. 
+
+Our function $\M : (G, t) \mapsto G_t$ is what we might call a ``learning function.'' In reality, its output depends on the fitness function of the neural network at completing some task, as well as the specifics of which output neurons have incorrect values. We will not be delving into the specifics of the learning function $\M$ in this project, or trying to implement some novel system for this, as this is outside our scope. However it is worth noting that in most artificial feed-forward neural networks, the function would simply modify the weights of the edges of $G$ in accordance to some fitness function. However, for our purposes, modification of the underlying product components $\listvec{H}{L}$ may be advantageous, particularly in the early stages of learning. This is because modifications to the underlying product components create large changes in the structure of the network at little computational expense.
+
+
+
+%input and amplitude for each neuron's membrane potential
+
+
 \newpage
 
-\begin{thebibliography}{4}
+\section{Future Work}
+
+
+% \item Using existing data in the literature, finish creating out model of the \textit{Hydra} antagonistic nerve nets
+% \item After creating a network that exhibits temporal signalling behavior, we hope to find the largest timestep $\Delta t$ that preserves this behavior. Knowing the largest possible timestep lets us run simulations faster, and grants insights about the nature of the temporal signaling.
+% \item Extend the tensor product optimization to allow replacement of vertices in $H_i$ with different graphs, not just $H_{i+1}$. This will in theory allow the representation of a wider variety of graph patterns, notably allowing differences in local structure between larger regions
+
+\subsection{Chemical Signalling}
+
+Chemical signalling in the human brain plays a far more complex role than the relatively simple antagonistic networks in \textit{Hydra}. Extending our model to the human brain is far outside the scope of this project or modern technology, but perhaps some insight into chemical signalling systems in nerve nets can be gained.
+
+\subsection{Frequency-Domain encoding}
+
+\subsubsection{Motivation}
+
+It is clear that biological neurons do not encode information in the strength of connections alone, but also in the timing and frequency of the pulses $^{[citation \ needed]}$. Both of these are theoretically taken into account in SNNs, but in practicality SNNs are too computationally intensive to model to properly utilize this behavior on a large scale. On the other hand, most other ANNs use only the amplitude of pulses, without taking into account repeated firings, and this limits their capabilities as well as efficiency. We propose the following novel system of artificial neural networks.
+
+\subsubsection{Model}
+
+As in a spiking neural network, we store the directed weighted graph $G$ of connections between neurons and some set of data for each neuron. However, instead of storing the costly time-domain in each neuron, we propose representing the action potential of a neuron $v$ through an array $A = [p_1, p_2, \ldots, p_r]$ where $A_v[p]$ gives the amplitude of the component of the action potential with period $p$. $r$ here is the global frequency resolution of the network, and can be adjusted between simulation runs. The values of $p$ for which $A_v[p]$ stores amplitudes is determined by a global variable as well. 
+%$A_v[0]$ is defined to always store the resting voltage of that particular neuron
+
+\subsubsection{Operation}
+
+
+
+
+
+
+
+\newpage
+
+\begin{thebibliography}{6}
 \bibitem{snn_intro}
     Ponulak F., Kasiński A. (2011).
     Introduction to spiking neural networks: Information processing, learning, and applications.
     Acta Neurobiol. Exp. 71: 409-433.
   
-\bibitem{hydra_neural}
+\bibitem{hydra}
     Dupre, C., Yuste, R. (2017). Non-overlapping Neural Networks in \textit{Hydra vulgaris}. Current Biology \textit{27}, 1085-1097.
     
 \bibitem{behavior}
@@ -63,5 +212,16 @@ As can be seen, this model is very simple, and doesn't actually compute the spik
     Sakaguchi, M., Mizusina, A., Kobayakawa, Y. (1996).
     Structure, Development, and Maintenance of the Nerve Net of the Body Column in \textit{Hydra}.
     The Journal of Comparative Neurology, 373:41-54.
+    
+\bibitem{first}
+    Watanabe, H., Fujisawa, T., Holstein, T.W. (2009).
+    Cnidarians and the evolutionary origin of the nervous system.
+    Develop. Growth Differ. 51, 167–183
+    
+\bibitem{neuron_count}
+    Bode, H., Berking, S., David, C.N., Gierer, A., Schaller, H., Trenkner, E. (1972).
+    Quantitative Analysis of Cell Types during Growth and Morphogenesis in Hydra.
+    Wilhelm Roux' Archiv 171, 269-285.
+
 \end{thebibliography}
 \end{document}

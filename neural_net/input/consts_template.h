@@ -53,8 +53,8 @@ struct spike
 {
 	spike() : v(0) {}
 
-	spike(voltage in_volt, time in_time)
-		: v(in_volt), t(in_time) {}
+	spike(weight wgt, time delay)
+		: v(V_SPIKEAMP * wgt), t(TIME_CURRENT + delay) {}
 
 	voltage v;
 	time t;

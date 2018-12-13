@@ -18,9 +18,11 @@ public:
 // stores time voltages hit, voltage, and coordinate
 neuron_coord c;
 spikeTrain spikes_in;
-time nextUpdate;
 voltage v;
 time t;
+
+neuron( neuron_coord in_c ) : v(V_REST), t(TIME_CURRENT)
+
 
 // FIXME: use heapify for spike train vector
 // FIXME: optimize by reading several before calling heapify again?
@@ -36,9 +38,6 @@ bool try_fire()
 		// updates only voltage at current time
 		v += spikes_in.top().t;
 	}
-
-	// set the time of the next update to the time of the top element
-	nextUpdate = spikes_in.top().t;
 
 	// test if it fired
 	if (v > V_THRESHOLD)

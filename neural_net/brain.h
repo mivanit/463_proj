@@ -19,7 +19,7 @@ graph layers [NUM_LAYERS];
 // neurons with nonzero voltage
 unordered_map < neuron_coord, neuron > active_neurons;
 // edges that have been modified
-unordered_map < coord_pair, edge > mod_edges;
+unordered_map < coord_pair, edge_base > mod_edges;
 unordered_map < neuron_coord, edge > add_edges;
 
 public:
@@ -79,21 +79,37 @@ void fire_all_adj(neuron & n, uint8_t layer)
 
 inline void push_spike_to_neuron(coord_pair p, uint8_t L)
 {
-	auto iter_test = mod_edges.find(p);
+	auto iter_e = mod_edges.find(p);
 
-	// spike elt = spike();
+	spike elt = spike();
 
-	if ( iter_test == mod_edges.end() )
+	// check if edge has been modified
+	if ( iter_e == mod_edges.end() )
 	{
 		// if not modified, use actual val
-		// TODO: double check arr scubscripts here
+		// access graph at correct layer, 
 		edge_base & e = layers[ L ].data[ p.in[ L ] ][ p.out[ L ] ];
-		elt = spike(V_SPIKEAMP * e.wgt, TIME_CURRENT + e.delay)
+		elt = spike(e.wgt, e.delay);
 	}
 	else
 	{
 		// if modified, use whatever was found
-		iter_test->second. 
+		edge_base & e = iter_e->second;
+		elt = spike(e.wgt, e.delay);
+	}
+
+	// find if neuron has been activated
+	auto iter_n = active_neurons.find(p.out);
+
+	if (iter_n == active_neurons.end())
+	{
+		// if found, add to that neuron
+		iter_n->second.add_spike(elt);
+	}
+	else
+	{
+		// if not, create a new neuron and add this spike to it
+		active_neurons.emplace(p.out, neuron());
 	}
 }
 
