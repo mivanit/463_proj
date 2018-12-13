@@ -7,6 +7,7 @@
 #define BRAIN
 
 #include <unordered_map>
+#include <queue>
 #include "nets.h"
 #include "util/err_util.h"
 
@@ -24,6 +25,8 @@ unordered_map < neuron_coord, edge > add_edges;
 
 public:
 
+brain() {}
+
 brain(vector < string > filenames)
 {
 	CHK_ERROR_FATAL(filenames.size() != NUM_LAYERS, "wrong number of filenames");
@@ -36,7 +39,47 @@ brain(vector < string > filenames)
 
 void step()
 {
+	// update time
+	TIME_CURRENT++;
 	// iterate over active_neurons
+	auto iter = active_neurons.begin();
+
+	queue < neuron_coord > to_erase;
+
+	while (iter != active_neurons.end())
+	{
+		neuron & n = iter->second;
+		// if there are any spikes at all
+		if (!(n.spikes_in.empty()))
+		{
+			// try to see if there is a spike at the current timestep
+			if (n.spikes_in.top().t <= TIME_CURRENT)
+			{
+				// if yes, try to fire the neuron
+				fire(n);
+			}
+		}
+		else
+		{
+			// if there are no spikes, test the time since last update
+			if ( n.t <= TIME_CURRENT - 1 )
+			{
+				// if it has been long enough, mark the neuron for removal
+				to_erase.push(n.c);
+			}
+		}
+	}
+
+	// wipe marked neurons
+	while (!to_erase.empty()) 
+	{
+		active_neurons.erase(to_erase.front());
+		to_erase.pop();
+	}
+}
+
+void fire_manual()
+{
 	
 }
 
@@ -45,10 +88,7 @@ void fire(neuron & n)
 	// if the neuron should fire at this timestep
 	if (n.try_fire())
 	{
-		// every edge specified by graph tensor:
-
-		// loop over layers
-		// for every
+		fire_all_adj(n, 0);
 	}
 }
 

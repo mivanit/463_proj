@@ -97,6 +97,13 @@ struct neuron_coord
 {
 	neuron_coord() {}
 
+	neuron_coord(uint8_t * in_data) 
+	{
+		for (uint8_t L = 0; L < NUM_LAYERS; L++)
+		{
+			data[L] = in_data[L];
+		}
+	}
 	neuron_coord(neuron_coord * input)
 	{
 		for (uint8_t L = 0; L < NUM_LAYERS; L++)

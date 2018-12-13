@@ -9,10 +9,14 @@
 
 int main()
 {
-	string "input/basic5n.tsv"
-	brain()
+	vector < string > filenames (NUM_LAYERS, "input/basic5n.tsv");
+	
+	brain testbrain (filenames);
 
-
+	while (true)
+	{
+		testbrain.step();
+	}
 
 
 
