@@ -22,9 +22,13 @@
 
 \begin{abstract}
 
+% TODO: abstract
+
 \end{abstract}
 
 \section{Artificial Neural Networks}
+% TODO: ANN intro
+
 \newpage
 
 \section{Biology of \textit{Hydra}}
@@ -141,7 +145,13 @@ In our full neuronal network code, instead of keeping track of the system of dif
 
 one attempted simplification of the neuron model that we make is that instead of keeping track of of a system of differential equations for each neuron, we instead keep track of when the neuron receives spikes from other neurons. We also use the tensor product optimization (described below) to simplify storing large directed graphs.
 
-\subsection{Tensor Product Optimization}
+\subsection{Leaky Integrate-and-Fire approximation}
+
+Instead of simulating the full time domain of every neuron, we consider the voltage at discrete (adjustable) timesteps. A neuron that fails to fire will have its potential ``leak,'' and a neuron that spikes will first have a high positive action potential, and then a negative potential that will ``leak'' back to the rest state. To simplify computations, we shift the system to have a rest state of 0V, as other approximations that we make in section \ref{TPO} will let us save a lot of memory by not storing data for any neuron where the membrane potential is 0 and there are no inbound signals.
+
+Importantly, We do not store every instant in the time domain. Instead, all incoming signals are stored in a sorted container and processed in the order in which they arrive.
+
+\subsection{Tensor Product Optimization} \label{TPO}
 
 We assume that the graph structure of a biological neural network at some time $t$ can be modeled by a time dependent function $\M$ that transforms the edge and vertex sets of an initial graph $G$ in some fashion. Further, we will model networks under the assumption that the initial structure of $G$ before any edge weights are modified can be represented in the following fashion:
 Where $H_1, H_2, \ldots, H_L$ are all directed weighted graphs representing repeated structure, and $K_i , K_o$ the sets input and output nodes with connections to $G$, we set  
@@ -155,15 +165,68 @@ For our applications, of course, we are not trying to simulate a random walk on 
 
 Our function $\M : (G, t) \mapsto G_t$ is what we might call a ``learning function.'' In reality, its output depends on the fitness function of the neural network at completing some task, as well as the specifics of which output neurons have incorrect values. We will not be delving into the specifics of the learning function $\M$ in this project, or trying to implement some novel system for this, as this is outside our scope. However it is worth noting that in most artificial feed-forward neural networks, the function would simply modify the weights of the edges of $G$ in accordance to some fitness function. However, for our purposes, modification of the underlying product components $\listvec{H}{L}$ may be advantageous, particularly in the early stages of learning. This is because modifications to the underlying product components create large changes in the structure of the network at little computational expense.
 
+\newpage
+
+\subsection{SNN Pseudocode}
+
+The actual code for the SNN is written in C++ for the purposes of low-level memory management and speed, and is therefore rather hard to read. It is included in Appendix A, but below is a rough description of how it functions
+
+\subsubsection{Basic Objects}
+\begin{itemize}
+    \item neuron
+    \begin{itemize}
+        \item coordinates in graph, stored as const-length array $C[L]$ where $C[i]$ gives the vertex ID in $H_i$, the tensor product component
+        \item container of input spike amplitudes, sorted by time of arrival
+        \item special variants for input/output neurons to allow for i/o processing
+        \item current voltage $V$
+        \item time $u$ that the neuron was last updated (this allows us to get away with not modelling the ``leaking'' for as long as the neuron does not interact with any others)
+    \end{itemize}
+    \item edge 
+        \begin{itemize}
+        \item start neuron coordinates (see above)
+        \item end neuron coordinates (see above)
+        \item connection strength
+        \item time delay between when the signal is sent out, and the signal arrives at the end neuron
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Containers}
+\begin{itemize}
+    \item the tensor product component graphs $H_1, \ldots, H_L$
+    \item the input/output neuron sets $K_i, K_o$
+    \item a container $E_\Delta$ of edges that have been modified, organized using a hash map on the coordinates
+    \item a container $E_+$ of new edges that connect neurons not directly connected in $G$. This is sorted by a hash map on the input coordinate
+    \item a container $N_a$ of active neurons with arriving signals, sorted by the time of arrival of the soonest signal
+\end{itemize}
 
 
-%input and amplitude for each neuron's membrane potential
-
+\subsubsection{Pseudocode}
+on every timestep $t$:
+\vspace{5mm} \\
+loop through every neuron $x$ for which the soonest spike is arriving at $t$
+\begin{itemize}
+    \item check $u$, the time the neuron was last updated, and update the voltage $V$ accordingly. 
+    \begin{itemize}
+        \item If the neuron fired recently, calculate what the recovery voltage should be. 
+        \item If the neuron was updated recently but did not fire, simulate the leaking. 
+        \item If the neuron was last updated far enough in the past, simply reset $V_x$ to the resting voltage
+    \end{itemize} 
+    \item loop through every spike that arrives at time $t$. Spikes that arrive before $t$ will have already been read, and spikes that arrive after can be processed in the future (a possible optimization here is to process all spikes on a neuron at once, but because of the possibility of new spikes arriving later, such an approach requires very clever memory management. Thus, we did not implement this in our project).
+    \item add all the weighted input spike voltages for time $t$ together, and update the current voltage $V_x$ accordingly
+    \item Note that $E_x$ is assembled by first checking edges adjacent in any $H_i$, and for any edge of nonzero weight cross-referencing the edge data with that of $E_\Delta$ to see if it has been modified. Additionally, we check $E_+$ for any totally new edges outbound from $x$. For every edge in $E_x$:
+    \item check if the threshold voltage is met. if it is:
+    \begin{itemize}
+        \item assemble (or simply update) the set of outbound edges $E_x$
+        \item For every edge $e \in E_x$, send a spike to the target neuron, adjusted in amplitude and time of arrival by the data stored in $e$.
+        \item update the time $u_x$ that the neuron $x$ was last updated
+        \item update the voltage $V_x$ in accordance with the neuron firing
+    \end{itemize}
+\end{itemize}
+Additionally, update the input neurons in $K_i$, and record anything from the output neurons in $K_o$
 
 \newpage
 
 \section{Future Work}
-
 
 % \item Using existing data in the literature, finish creating out model of the \textit{Hydra} antagonistic nerve nets
 % \item After creating a network that exhibits temporal signalling behavior, we hope to find the largest timestep $\Delta t$ that preserves this behavior. Knowing the largest possible timestep lets us run simulations faster, and grants insights about the nature of the temporal signaling.
@@ -171,7 +234,9 @@ Our function $\M : (G, t) \mapsto G_t$ is what we might call a ``learning functi
 
 \subsection{Chemical Signalling}
 
-Chemical signalling in the human brain plays a far more complex role than the relatively simple antagonistic networks in \textit{Hydra}. Extending our model to the human brain is far outside the scope of this project or modern technology, but perhaps some insight into chemical signalling systems in nerve nets can be gained.
+Chemical signalling in the human brain plays a far more complex role than the relatively simple antagonistic networks in \textit{Hydra}. Extending our model to the human brain is far outside the scope of this project or even modern technology, but perhaps some insight into chemical signalling systems in nerve nets can be gained.
+
+In particular, learning algorithms in biological creatures seem to have a chemical-based reward system. This is in stark contrast to backpropogation in most ANNs, which has little to no biological analogy and is useful only in comparatively narrow use cases.
 
 \subsection{Frequency-Domain encoding}
 
@@ -186,9 +251,13 @@ As in a spiking neural network, we store the directed weighted graph $G$ of conn
 
 \subsubsection{Operation}
 
+In principle, using a frequency domain model should be somewhat similar to the 
 
 
 
+
+\section*{Appendix A: SNN source code}
+% TODO: SNN source code
 
 
 
