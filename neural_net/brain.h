@@ -20,10 +20,10 @@ private:
 // array for layers
 graph layers [NUM_LAYERS];
 // neurons with nonzero voltage
-unordered_map < neuron_coord, neuron > active_neurons;
+unordered_map < neuron_coord, neuron, coordHasher > active_neurons;
 // edges that have been modified
-unordered_map < coord_pair, edge_base > mod_edges;
-unordered_map < neuron_coord, edge > add_edges;
+unordered_map < coord_pair, edge_base, coordPairHasher > mod_edges;
+unordered_map < neuron_coord, edge, coordHasher > add_edges;
 
 public:
 

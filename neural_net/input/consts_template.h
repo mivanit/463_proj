@@ -133,11 +133,20 @@ struct coordHasher
 		size_t out = 0;
 		for (uint8_t i = 0; i < NUM_LAYERS; i++)
 		{
-			(out ^ (hash<uint8_t>(c[i]) << 1)) >> 1;
-			out = hash<size_t>(out)
+			(out ^ (hash<uint8_t>()(c.data[i]) << 1)) >> 1;
+			out = hash<size_t>()(out);
 		}
 
 		return out;
+	}
+};
+
+struct coordPairHasher
+{
+	coordHasher crdHash();
+	size_t operator()(const coord_pair & p) const
+	{
+		return (crdHash(p.in) ^ crdHash(p.out));
 	}
 };
 
