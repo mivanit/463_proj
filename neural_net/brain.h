@@ -34,6 +34,12 @@ brain(vector < string > filenames)
 	}
 }
 
+void step()
+{
+	// iterate over active_neurons
+	
+}
+
 void fire(neuron & n)
 {
 	// if the neuron should fire at this timestep
@@ -58,26 +64,24 @@ void fire_all_adj(neuron & n, uint8_t layer)
 	{
 		// access graph_testing 's data at n.c[layer] (the coordinate in the layer)
 		// this tells us if the neuron with identical coordinates, but c[layer] set to "i"
-		// is connected
+		// is connected to our neuron n
+
 		// if nonzero wgt
 		if ( !zero_f(graph_testing.data[coord[layer]][i].wgt) )
 		{
-			// test if edge modified
-			neuron_coord coord_test = coord.nrn_crd_replace(layer, i);
-			
+			push_spike_thru_edge(coord_pair(coord, coord.nrn_crd_replace(layer, i)), layer);
 		}
-
-
-		if ( layer < NUM_LAYERS - 1 )
-		{
-			// if not at bottom layer
-			// for every adjacent neuron, recurse
-			fire_all_adj(n, layer + 1);
-		}
+	}
+	
+	
+	if ( layer < NUM_LAYERS - 1 )
+	{
+		// if not at bottom layer, recurse
+		fire_all_adj(n, layer + 1);
 	}
 }
 
-inline void push_spike_to_neuron(coord_pair p, uint8_t L)
+inline void push_spike_thru_edge(coord_pair p, uint8_t L)
 {
 	auto iter_e = mod_edges.find(p);
 
@@ -109,13 +113,9 @@ inline void push_spike_to_neuron(coord_pair p, uint8_t L)
 	else
 	{
 		// if not, create a new neuron and add this spike to it
-		active_neurons.emplace(p.out, neuron());
+		active_neurons.emplace(p.out, neuron(p.out));
 	}
 }
-
-
-
-// TODO: unoredered map for neurons?
 
 
 };

@@ -54,7 +54,7 @@ struct coord_pair
 	neuron_coord out;
 
 	coord_pair(neuron_coord & a, neuron_coord & b) : in(a), out (b) {}
-}
+};
 
 
 #endif

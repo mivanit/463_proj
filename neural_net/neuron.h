@@ -21,7 +21,7 @@ spikeTrain spikes_in;
 voltage v;
 time t;
 
-neuron( neuron_coord in_c ) : v(V_REST), t(TIME_CURRENT)
+neuron( neuron_coord in_c ) : v(V_REST), t(TIME_CURRENT) {}
 
 
 // FIXME: use heapify for spike train vector
@@ -30,7 +30,7 @@ bool try_fire()
 {	
 	// if the time is too far in the past, reset voltage to rest value
 	if (t + 1 < TIME_CURRENT) v = V_REST;
-	t++;
+	t = TIME_CURRENT;
 
 	// read until current time
 	while (spikes_in.top().t <= TIME_CURRENT)
