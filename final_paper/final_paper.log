@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.21)  12 DEC 2018 23:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.21)  13 DEC 2018 09:47
 entering extended mode
 **"c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex"
 ("c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex"
@@ -199,13 +199,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {C:/Users/mivan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
-LaTeX Warning: Citation `behavior' on page 2 undefined on input line 41.
+LaTeX Warning: Citation `behavior' on page 2 undefined on input line 42.
 
 
-LaTeX Warning: File `final_paper/hydra.jpg' not found on input line 45.
+LaTeX Warning: File `final_paper/hydra.jpg' not found on input line 46.
 
 
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:45: Package pdftex.def Error: File `final_paper/hydra.jpg' not found: using draft setting.
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:46: Package pdftex.def Error: File `final_paper/hydra.jpg' not found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help
@@ -213,56 +213,39 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Citation `behavior' on page 2 undefined on input line 46.
+LaTeX Warning: Citation `behavior' on page 2 undefined on input line 47.
 
 
-LaTeX Warning: Citation `behavior' on page 2 undefined on input line 46.
+LaTeX Warning: Citation `behavior' on page 2 undefined on input line 47.
 
 
-LaTeX Warning: Citation `first' on page 2 undefined on input line 51.
+LaTeX Warning: Citation `first' on page 2 undefined on input line 52.
 
 
-LaTeX Warning: Citation `neuron_count' on page 2 undefined on input line 53.
+LaTeX Warning: Citation `neuron_count' on page 2 undefined on input line 54.
 
 
-LaTeX Warning: Citation `density' on page 2 undefined on input line 53.
+LaTeX Warning: Citation `density' on page 2 undefined on input line 54.
 
 [2]
 
-LaTeX Warning: Citation `hydra' on page 3 undefined on input line 55.
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 56.
 
 
-LaTeX Warning: Citation `hydra' on page 3 undefined on input line 57.
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 58.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 59.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 60.
 ("C:\Program Files (x86)\MiKTex\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
 
 
-LaTeX Warning: File `old/hydra_movements.png' not found on input line 66.
+LaTeX Warning: File `old/hydra_movements.png' not found on input line 67.
 
 
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:66: Package pdftex.def Error: File `old/hydra_movements.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Citation `hydra' on page 3 undefined on input line 67.
-
-
-LaTeX Warning: Citation `hydra' on page 3 undefined on input line 67.
-
-
-LaTeX Warning: File `old/hydra_map.png' not found on input line 73.
-
-
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:73: Package pdftex.def Error: File `old/hydra_map.png' not found: using draft setting.
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:67: Package pdftex.def Error: File `old/hydra_movements.png' not found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help
@@ -270,28 +253,34 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Citation `hydra' on page 3 undefined on input line 74.
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 68.
 
 
-LaTeX Warning: Citation `hydra' on page 3 undefined on input line 74.
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 68.
+
+
+LaTeX Warning: File `old/hydra_map.png' not found on input line 74.
+
+
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:74: Package pdftex.def Error: File `old/hydra_map.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 75.
+
+
+LaTeX Warning: Citation `hydra' on page 3 undefined on input line 75.
 
 [3]
 
-LaTeX Warning: File `final_paper/lifV.jpg' not found on input line 95.
+LaTeX Warning: File `final_paper/lifV.jpg' not found on input line 96.
 
 
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:95: Package pdftex.def Error: File `final_paper/lifV.jpg' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `final_paper/lifI.jpg' not found on input line 101.
-
-
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:101: Package pdftex.def Error: File `final_paper/lifI.jpg' not found: using draft setting.
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:96: Package pdftex.def Error: File `final_paper/lifV.jpg' not found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help
@@ -299,28 +288,28 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Reference `fig:lifV' on page 4 undefined on input line 102.
+LaTeX Warning: File `final_paper/lifI.jpg' not found on input line 102.
 
 
-LaTeX Warning: Reference `fig:lifV' on page 4 undefined on input line 102.
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:102: Package pdftex.def Error: File `final_paper/lifI.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:lifV' on page 4 undefined on input line 103.
+
+
+LaTeX Warning: Reference `fig:lifV' on page 4 undefined on input line 103.
 
 [4]
 
-LaTeX Warning: File `final_paper/noinhib.jpg' not found on input line 123.
+LaTeX Warning: File `final_paper/noinhib.jpg' not found on input line 124.
 
 
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:123: Package pdftex.def Error: File `final_paper/noinhib.jpg' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `final_paper/inhib.jpg' not found on input line 129.
-
-
-c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:129: Package pdftex.def Error: File `final_paper/inhib.jpg' not found: using draft setting.
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:124: Package pdftex.def Error: File `final_paper/noinhib.jpg' not found: using draft setting.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help
@@ -328,26 +317,42 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Reference `fig:noinhib' on page 5 undefined on input line 130.
+LaTeX Warning: File `final_paper/inhib.jpg' not found on input line 130.
 
 
-LaTeX Warning: Reference `fig:noinhib' on page 5 undefined on input line 130.
+c:/Users/mivan/Google Drive/Fall_2018/Math_463/463_proj/final_paper/final_paper.tex:130: Package pdftex.def Error: File `final_paper/inhib.jpg' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:noinhib' on page 5 undefined on input line 131.
+
+
+LaTeX Warning: Reference `fig:noinhib' on page 5 undefined on input line 131.
 
 [5] [6]
 
-LaTeX Warning: Reference `TPO' on page 7 undefined on input line 150.
+LaTeX Warning: Reference `TPO' on page 7 undefined on input line 147.
 
-[7] [8]
-Overfull \hbox (0.47273pt too wide) in paragraph at lines 210--211
+[7] [8] [9] [10]
+Overfull \hbox (0.47273pt too wide) in paragraph at lines 211--212
 []\OT1/cmr/m/n/10 If the neu-ron fired re-cently, cal-cu-late what the re-cov-ery volt-age should
  []
 
-[9] [10]
-Overfull \hbox (10.87637pt too wide) in paragraph at lines 245--246
+[11]
+Overfull \hbox (4.75087pt too wide) in paragraph at lines 244--244
+[]\OT1/cmr/bx/n/10 Incorporation of Hy-dra an-tag-o-nis-tic neu-rons into mod-i-fied SNN 
+ []
+
+
+Overfull \hbox (10.87637pt too wide) in paragraph at lines 260--261
 \OT1/cmr/m/n/10 con-nec-tions alone, but also in the tim-ing and fre-quency of the pulses $[]$.
  []
 
-[11] [12] (final_paper.aux)
+[12] [13] [14] (final_paper.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -356,17 +361,17 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 3508 strings out of 492972
- 51797 string characters out of 3135001
+ 3510 strings out of 492972
+ 51819 string characters out of 3135001
  119405 words of memory out of 3000000
- 7326 multiletter control sequences out of 15000+200000
+ 7328 multiletter control sequences out of 15000+200000
  12983 words of font info for 50 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,12n,41p,1128b,345s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,12n,41p,1148b,345s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on final_paper.pdf (12 pages, 220762 bytes).
+Output written on final_paper.pdf (14 pages, 227556 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
+ 112 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

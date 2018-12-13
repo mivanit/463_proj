@@ -28,6 +28,7 @@
 
 \section{Artificial Neural Networks}
 % TODO: ANN intro
+An Artificial Neural Network (ANN) is a weighted directed graph, with input nodes and output nodes, usually trained to perform some computational task. They are loosely based on the idea that biological neurons form graphs between them, and that the strength of connections between neurons (edge weight in the graph) plays a role in computation. A notable difference that we will be exploring is that although it is thought that neurons encode information in either the exact times of pulses, frequency of pulses, or both, most artificial neural networks do no such thing. Despite this, the availability of huge amounts of data and large amounts of processing power has enabled the recent emergence of feed-forward neural networks capable of performing such formerly impossible tasks such as image recognition. Feed-forward neural networks are even less similar to biological neural networks, but the simulation of a propogation cycle in a feed-forward neural net is nothing but easy matrix multiplication, and thus attractive from a computational standpoint.
 
 \newpage
 
@@ -137,19 +138,17 @@ To scale this to $n$ neurons, we could have the $i$-th neuron in the RP1 circuit
 
 \section{simplified SNN Model}
 
-\subsection{Outline}
+In addition to the simulation of single neurons of pairs of neurons, we also wrote a sizable amount of code to simulate Spiked Neural Networks, a type of ANN that is more similar to biological neural networks. Normally, ANNs fire only during a propogation cycle, time delay between neurons is not accounted for, neurons fire according to a sigmoid function instead of when a voltage threshold is crossed, and often only a single parameter is passed between neurons. In a Spiked Neural Network (SNN), the neurons fire at any time when their threshold potential is exceeded, much like in all of the neuron models that we studied. Spiked Neural Networks are much more capable than other ANNs in theory, and this is thought to be because much like real neuronal networks, SNNs encode information in the frequency and/or time between pulses, and not in the amplitude of pulses (strength of connections) as most ANNs do. To attempt to improve efficiency and allow for the simulation of larger network, our code makes certain simplifications described below.
 
-%TODO
+\subsection{Leaky Integrate-and-Fire approximation} \label{LIF_code}
 
-In our full neuronal network code, instead of keeping track of the system of differential equations for every neuron, we keep track of the input spikes at discrete intervals.
+Instead of simulating the full time domain of every neuron, we consider the voltage at discrete (adjustable) timesteps. Discrete timesteps can, in theory, simulate continuous time to within any margin of error with a small enough timestep. However, the larger the timestep, the easier it is to perform the computations. One of our goals is to determine an upper bound on the acceptable timestep size.
 
-one attempted simplification of the neuron model that we make is that instead of keeping track of of a system of differential equations for each neuron, we instead keep track of when the neuron receives spikes from other neurons. We also use the tensor product optimization (described below) to simplify storing large directed graphs.
+In our full SNN model, a neuron that fails to fire will have its potential ``leak,'' and a neuron that spikes will first have a high positive action potential, and then a lower recovery potential that will ``leak'' back to the rest state. To simplify computations, we shift the system to have a rest state of 0V, as other approximations that we make in section \ref{TPO} will let us save a lot of memory by not storing data for any neuron where the membrane potential is 0 and there are no inbound signals. Shifting the voltage of the system up or down  should not have any effect on the actual function of the system, and in fact any of the parameters can be easily changed (back to the biological values, for example) by modifying a single line of code. However, 0V as a rest state makes certain computations easier.
 
-\subsection{Leaky Integrate-and-Fire approximation}
+Importantly, We do not store every instant in the time domain. Instead, all incoming signals are stored in a sorted container (a binary heap priority queue in our case) and processed in the order in which they arrive. This allows us to quickly process the required incoming signals at every timestep, without having to check the neurons which will not yet be firing at the current time step. As a result of this, we also do not process the leaking of the voltage level until the neuron is asked to fire again, as performing this computation at every single timestep is costly, and is not needed if the neuron ends up leaking until returning to the rest voltage without recieving any new signals.
 
-Instead of simulating the full time domain of every neuron, we consider the voltage at discrete (adjustable) timesteps. A neuron that fails to fire will have its potential ``leak,'' and a neuron that spikes will first have a high positive action potential, and then a negative potential that will ``leak'' back to the rest state. To simplify computations, we shift the system to have a rest state of 0V, as other approximations that we make in section \ref{TPO} will let us save a lot of memory by not storing data for any neuron where the membrane potential is 0 and there are no inbound signals.
-
-Importantly, We do not store every instant in the time domain. Instead, all incoming signals are stored in a sorted container and processed in the order in which they arrive.
+% TODO: review this?
 
 \subsection{Tensor Product Optimization} \label{TPO}
 
@@ -167,7 +166,7 @@ Our function $\M : (G, t) \mapsto G_t$ is what we might call a ``learning functi
 
 \newpage
 
-\subsection{SNN Pseudocode}
+\subsection{SNN Pseudocode} \label{pseudocode}
 
 The actual code for the SNN is written in C++ for the purposes of low-level memory management and speed, and is therefore rather hard to read. It is included in Appendix A, but below is a rough description of how it functions
 
@@ -200,10 +199,12 @@ The actual code for the SNN is written in C++ for the purposes of low-level memo
 \end{itemize}
 
 
+\newpage
+
 \subsubsection{Pseudocode}
 on every timestep $t$:
 \vspace{5mm} \\
-loop through every neuron $x$ for which the soonest spike is arriving at $t$
+loop through every neuron $x \in N_a$ for which the soonest spike is arriving at $t$
 \begin{itemize}
     \item check $u$, the time the neuron was last updated, and update the voltage $V$ accordingly. 
     \begin{itemize}
@@ -217,12 +218,18 @@ loop through every neuron $x$ for which the soonest spike is arriving at $t$
     \item check if the threshold voltage is met. if it is:
     \begin{itemize}
         \item assemble (or simply update) the set of outbound edges $E_x$
-        \item For every edge $e \in E_x$, send a spike to the target neuron, adjusted in amplitude and time of arrival by the data stored in $e$.
+        \item For every edge $e \in E_x$, send a spike to the target neuron, adjusted in amplitude and time of arrival by the data stored in $e$. If the target neuron does not exist, create it and add it to $N_a$
         \item update the time $u_x$ that the neuron $x$ was last updated
         \item update the voltage $V_x$ in accordance with the neuron firing
     \end{itemize}
 \end{itemize}
-Additionally, update the input neurons in $K_i$, and record anything from the output neurons in $K_o$
+
+Additionally:
+\begin{itemize}
+    \item on every timestep, update the input neurons in $K_i$, and record anything from the output neurons in $K_o$. 
+    \item Any neurons in $N_a$ which are at rest voltage and have no incoming spikes should be deleted
+    \item upon the collection of enough output data, the network should be modified based on its fitness (this has not been implemented yet in our model)
+\end{itemize}
 
 \newpage
 
@@ -234,9 +241,17 @@ Additionally, update the input neurons in $K_i$, and record anything from the ou
 
 \subsection{Chemical Signalling}
 
+\subsubsection{Incorporation of Hydra antagonistic neurons into modified SNN}
+
+% TODO: more on chem signalling
+
+\subsubsection{Applications to learning algorithms}
+
 Chemical signalling in the human brain plays a far more complex role than the relatively simple antagonistic networks in \textit{Hydra}. Extending our model to the human brain is far outside the scope of this project or even modern technology, but perhaps some insight into chemical signalling systems in nerve nets can be gained.
 
 In particular, learning algorithms in biological creatures seem to have a chemical-based reward system. This is in stark contrast to backpropogation in most ANNs, which has little to no biological analogy and is useful only in comparatively narrow use cases.
+
+% TODO: more on chem signalling as learning
 
 \subsection{Frequency-Domain encoding}
 
@@ -247,11 +262,16 @@ It is clear that biological neurons do not encode information in the strength of
 \subsubsection{Model}
 
 As in a spiking neural network, we store the directed weighted graph $G$ of connections between neurons and some set of data for each neuron. However, instead of storing the costly time-domain in each neuron, we propose representing the action potential of a neuron $v$ through an array $A = [p_1, p_2, \ldots, p_r]$ where $A_v[p]$ gives the amplitude of the component of the action potential with period $p$. $r$ here is the global frequency resolution of the network, and can be adjusted between simulation runs. The values of $p$ for which $A_v[p]$ stores amplitudes is determined by a global variable as well. 
+
 %$A_v[0]$ is defined to always store the resting voltage of that particular neuron
 
 \subsubsection{Operation}
 
+% TODO: describe operation of frequency domain network
+
 In principle, using a frequency domain model should be somewhat similar to the 
+
+
 
 
 
